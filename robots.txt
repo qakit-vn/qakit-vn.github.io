@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://qakit-vn.github.io/sitemap.xml
+Sitemap: https://qakit-vn.github.io/qakit/sitemap.xml
+Sitemap: https://qakit-vn.github.io/soshop/sitemap.xml
+Sitemap: https://qakit-vn.github.io/chitieu/sitemap.xml
+Sitemap: https://qakit-vn.github.io/congcu/sitemap.xml
