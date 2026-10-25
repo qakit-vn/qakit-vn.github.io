@@ -38,4 +38,27 @@ var CAN=['Giáp','Ất','Bính','Đinh','Mậu','Kỷ','Canh','Tân','Nhâm','Qu
 function canChiNam(y){return CAN[(y+6)%10]+' '+CHI[(y+8)%12]}
 function canChiNgay(d,m,y){var jd=jdFromDate(d,m,y);return CAN[(jd+9)%10]+' '+CHI[(jd+1)%12]}
 function bmi(kg,cm){var b=kg/Math.pow(cm/100,2),p=b<18.5?'Thiếu cân':b<23?'Bình thường':b<25?'Thừa cân':b<30?'Béo phì độ I':'Béo phì độ II';return[b,p]}
-if(typeof module!=='undefined')module.exports={VN,thueLuyTien,g2n,n2g,lichGocDeu,lichNienKim,laiTietKiem,s2l,l2s,canChiNam,canChiNgay,bmi};
+
+// BHXH (Luật 41/2024/QH15): khoản 6 Điều 5 làm tròn tháng lẻ; Điều 66 lương hưu; Điều 68 trợ cấp 1 lần khi nghỉ hưu; Điều 70 BHXH 1 lần
+function namLe(th){var y=Math.floor(th/12),m=th%12;return y+(m===0?0:m<=6?.5:1)}
+function bhxh1Lan(bq,thTruoc,thSau,daDongNeuDuoi1Nam){var tong=thTruoc+thSau;if(tong<12&&tong>0){var cap=2*bq;var v=daDongNeuDuoi1Nam>0?Math.min(daDongNeuDuoi1Nam,cap):cap;return{nTruoc:0,nSau:0,tien:v,duoi1:true}}
+var yT=Math.floor(thTruoc/12),le=thTruoc%12;if(thSau===0){var n=namLe(thTruoc);return{nTruoc:n,nSau:0,tien:n*1.5*bq}}var nS=namLe(thSau+le);return{nTruoc:yT,nSau:nS,tien:yT*1.5*bq+nS*2*bq}}
+function luongHuu(gt,th,bq,o){o=o||{};var n=namLe(th),ty;if(th<180)return{du:false,n:n};
+if(gt==='nu')ty=45+(n-15)*2;else ty=n<20?40+(n-15)*1:45+(n-20)*2;ty=Math.min(75,ty);
+var tr=o.truocTuoi||0,giam=Math.floor(tr/12)*2+(tr%12>=6?1:0);ty=Math.max(0,ty-giam);var lh=bq*ty/100,san=false;
+if(o.thamGiaTruoc2025&&th>=240&&lh<VN.CS){lh=VN.CS;san=true}
+var nguong=gt==='nu'?30:35,tc=n>nguong?(n-nguong)*0.5*bq:0;return{du:true,n:n,ty:ty,lh:lh,san:san,tc1lan:tc,giam:giam}}
+// chi phí doanh nghiệp: BHXH 17,5% (gồm 0,5% TNLĐ-BNN), BHYT 3%, BHTN 1%, KPCĐ 2% (Luật Công đoàn 2024)
+function chiPhiDN(gross,o){o=o||{};var vung=o.vung||1,base=o.base>0?o.base:gross,b1=Math.min(base,VN.CAP_BH),b2=Math.min(base,20*VN.VUNG[vung-1]),tnld=o.tnld==null?.005:o.tnld;
+var x={bhxh:b1*(.17+tnld),bhyt:b1*.03,bhtn:b2*.01,kpcd:o.kpcd===false?0:b1*.02};x.tong=x.bhxh+x.bhyt+x.bhtn+x.kpcd;x.chiPhi=gross+x.tong;x.nv=g2n(gross,o);return x}
+// đọc số thành chữ tiếng Việt
+var CS_=['không','một','hai','ba','bốn','năm','sáu','bảy','tám','chín'];
+function doc3(n,full){var t=Math.floor(n/100),c=Math.floor(n%100/10),d=n%10,a=[];if(full||t>0){a.push(CS_[t],'trăm')}
+if(c>1){a.push(CS_[c],'mươi');if(d===1)a.push('mốt');else if(d===4)a.push('tư');else if(d===5)a.push('lăm');else if(d>0)a.push(CS_[d])}
+else if(c===1){a.push('mười');if(d===5)a.push('lăm');else if(d>0)a.push(CS_[d])}
+else if(d>0){if(full||t>0)a.push('lẻ');a.push(CS_[d])}return a.join(' ')}
+function soChu(n){n=Math.floor(Math.abs(n));if(n===0)return'không';return sc(n,false)}
+function sc(n,lead){if(n>=1e9){var hi=Math.floor(n/1e9),lo=n%1e9;return(sc(hi,lead)+' tỷ'+(lo?' '+sc(lo,true):'')).trim()}
+var g=[Math.floor(n/1e6),Math.floor(n%1e6/1000),n%1000],U=[' triệu',' nghìn',''],o=[],st=lead;for(var i=0;i<3;i++){if(g[i]===0)continue;o.push(doc3(g[i],st)+U[i]);st=true}return o.join(' ')}
+function tienChu(n){var s=soChu(n);return s.charAt(0).toUpperCase()+s.slice(1)+' đồng'}
+if(typeof module!=='undefined')module.exports={VN,thueLuyTien,g2n,n2g,lichGocDeu,lichNienKim,laiTietKiem,s2l,l2s,canChiNam,canChiNgay,bmi,namLe,bhxh1Lan,luongHuu,chiPhiDN,soChu,tienChu};
