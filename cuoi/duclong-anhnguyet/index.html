@@ -257,7 +257,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 .gc .bk{font-family:"Playfair Display";letter-spacing:.2em;text-transform:uppercase;font-size:.8rem;color:var(--gold);margin:6px 0 14px}
 .gc .qr{width:min(220px,64vw);margin:0 auto;background:#fff;padding:10px;border-radius:10px;box-shadow:0 10px 24px -14px rgba(0,0,0,.35)}
 .gc .stk{font-family:"Playfair Display";font-size:1.35rem;letter-spacing:.08em;margin:14px 0 4px}
-.gc .owner{display:none}
+.gc .owner{letter-spacing:.22em;font-size:.85rem;color:var(--muted);font-weight:600}
 .gc .acts{margin-top:12px}
 #toast{position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));transform:translate(-50%,30px);background:rgba(40,30,18,.92);color:#f6e7c4;padding:.7em 1.3em;border-radius:30px;font-size:.95rem;opacity:0;transition:.4s;z-index:300;pointer-events:none}
 #toast.on{opacity:1;transform:translate(-50%,0)}
@@ -476,8 +476,8 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
  <div class="gbox rv" id="gbox" role="button" tabindex="0" aria-label="Mở hộp mừng cưới"><div class="body"></div><div class="glow"></div><div class="lid"><div class="bow"></div><div class="knot"></div></div></div>
  <p class="ghint" id="ghint">Chạm để mở hộp quà</p>
  <div class="gcards">
-  <div class="gc"><div class="caps">Nhà trai</div><h4>Đức Long</h4><div class="bk">Vietcombank</div><img class="qr" src="img/qr-trai.png" alt="Mã VietQR Vietcombank 1065232558" loading="lazy"><div class="stk">1065232558</div><!-- TODO: tên chủ tài khoản nhà trai (chưa có) --><div class="owner"></div><div class="acts"><button class="b2 f" data-copy="1065232558">Sao chép STK</button><a class="b2" href="img/qr-trai.png" download="QR-mung-cuoi-nha-trai.png">Tải mã QR</a></div></div>
-  <div class="gc"><div class="caps">Nhà gái</div><h4>Ánh Nguyệt</h4><div class="bk">Techcombank</div><img class="qr" src="img/qr-gai.png" alt="Mã VietQR Techcombank 19034810118019" loading="lazy"><div class="stk">19034810118019</div><!-- TODO: tên chủ tài khoản nhà gái (chưa có) --><div class="owner"></div><div class="acts"><button class="b2 f" data-copy="19034810118019">Sao chép STK</button><a class="b2" href="img/qr-gai.png" download="QR-mung-cuoi-nha-gai.png">Tải mã QR</a></div></div>
+  <div class="gc"><div class="caps">Nhà trai</div><h4>Đức Long</h4><div class="bk">Vietcombank</div><img class="qr" src="img/qr-trai.png" alt="Mã VietQR Vietcombank 1065232558" loading="lazy"><div class="stk">1065232558</div><div class="owner">VU DUC LONG</div><div class="acts"><button class="b2 f" data-copy="1065232558">Sao chép STK</button><a class="b2" href="img/qr-trai.png" download="QR-mung-cuoi-nha-trai.png">Tải mã QR</a></div></div>
+  <div class="gc"><div class="caps">Nhà gái</div><h4>Ánh Nguyệt</h4><div class="bk">Techcombank</div><img class="qr" src="img/qr-gai.png" alt="Mã VietQR Techcombank 19034810118019" loading="lazy"><div class="stk">19034810118019</div><div class="owner">LE ANH NGUYET</div><div class="acts"><button class="b2 f" data-copy="19034810118019">Sao chép STK</button><a class="b2" href="img/qr-gai.png" download="QR-mung-cuoi-nha-gai.png">Tải mã QR</a></div></div>
  </div>
  <p class="note" style="margin-top:18px">Nội dung chuyển khoản gợi ý: “Mung cuoi Long Nguyet”</p>
 </section>
