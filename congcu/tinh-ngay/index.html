@@ -16,14 +16,14 @@ $('out').innerHTML=`<div class="lbl">Khoảng cách giữa hai ngày</div><div c
 var s=document.querySelector('script[src$="lib.js"]'),B=s?s.src.replace(/lib\.js.*$/,''):'';
 function go(){var th=(document.body.className.match(/th-(\w+)/)||[])[1],h=document.querySelector('.hico'),r=document.querySelector('.res')||document.querySelector('.tcd'),bv=document.body.dataset.bee||'';
 if(th==='moon'&&h&&matchMedia('(min-width:900px)').matches){import(B+'moon.min.js').then(function(m){h.classList.add('m3');m.init(h)}).catch(function(){})}
+if(r){var bw=document.createElement('div'),im=new Image(),tm;bw.className='bee';bw.title='Siêng';im.alt='';im.decoding='async';im.src=B+'bees/bee-'+(bv||'pro')+'.webp';bw.appendChild(im);r.appendChild(bw);
+ function play(n,ms){bw.classList.remove('s-look','s-cheer','s-jump');void bw.offsetWidth;if(n)bw.classList.add('s-'+n);if(ms){clearTimeout(bw._t);bw._t=setTimeout(function(){bw.classList.remove('s-'+n)},ms)}}
+ im.onload=function(){bw.classList.add('on');if(bv==='tet')play('cheer',1400)};
+ function pop(){r.classList.remove('pop');void r.offsetWidth;r.classList.add('pop')}
+ document.addEventListener('input',function(e){if(!e.target.closest('.fields,.panel'))return;if(!bw.classList.contains('s-look'))play('look');clearTimeout(tm);tm=setTimeout(function(){play('cheer',1400);pop()},700)});
+ bw.addEventListener('click',function(){play('jump',800)});
+ document.addEventListener('click',function(e){if(e.target.closest('.acts button'))play('jump',800);if(e.target.closest('.presets button')){play('cheer',1400);pop()}});}
 var x=document.createElement('script');x.src=B+'lottie_light.min.js';x.onload=function(){
  if(h&&th&&!h.classList.contains('m3')){var d=document.createElement('div');d.className='lt';h.appendChild(d);var a=lottie.loadAnimation({container:d,renderer:'svg',loop:true,autoplay:true,path:B+'lottie/'+th+'.json'});a.addEventListener('DOMLoaded',function(){if(!h.classList.contains('m3'))h.classList.add('on')})}
- if(r){var bw=document.createElement('div');bw.className='bee';bw.title='Siêng';r.appendChild(bw);var b=lottie.loadAnimation({container:bw,renderer:'svg',loop:false,autoplay:false,path:B+'lottie/bee'+(bv?'-'+bv:'')+'.json'}),st='idle',tm;
-  function play(n,a,z){st=n;b.playSegments([a,z],true)}
-  b.addEventListener('DOMLoaded',function(){bw.classList.add('on');if(bv==='tet')play('cheer',90,149);else play('idle',0,59)});
-  b.addEventListener('complete',function(){if(st!=='look')play('idle',0,59);else b.goToAndStop(84,true)});
-  document.addEventListener('input',function(e){if(!e.target.closest('.fields,.panel'))return;if(st!=='look')play('look',60,84);clearTimeout(tm);tm=setTimeout(function(){play('cheer',90,149);r.classList.remove('pop');void r.offsetWidth;r.classList.add('pop')},700)});
-  bw.addEventListener('click',function(){play('jump',150,179)});
-  document.addEventListener('click',function(e){if(e.target.closest('.acts button'))play('jump',150,179);if(e.target.closest('.presets button')){play('cheer',90,149);r.classList.remove('pop');void r.offsetWidth;r.classList.add('pop')}});}
 };document.head.appendChild(x)}
 addEventListener('load',function(){(window.requestIdleCallback||setTimeout)(go,{timeout:2500})})})();</script></body></html>
