@@ -55,7 +55,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 .gate-ui .names{font-family:"Ephesis";font-size:clamp(2.6rem,11vw,3.6rem);line-height:1;text-shadow:0 2px 20px rgba(0,0,0,.6)}
 .gate-ui .d{letter-spacing:.4em;font-size:.8rem;margin:.6em 0 1.2em;color:#e3c98c}
 .seal{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:4;width:104px;height:104px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b8434d,#7a1f28 60%,#5a141b);display:grid;place-items:center;box-shadow:0 6px 24px rgba(0,0,0,.5),inset 0 -4px 10px rgba(0,0,0,.35),inset 0 3px 6px rgba(255,255,255,.2);transition:transform 1s cubic-bezier(.5,-0.4,.5,1),opacity .8s;cursor:pointer}
-.seal svg{width:62px;opacity:.9}
+.seal svg{width:78px;height:78px;display:block;opacity:.9;overflow:visible}
 #gate.open .seal{transform:translate(-50%,-50%) scale(1.6);opacity:0}
 .btn{font:600 .78rem "Cormorant Garamond";letter-spacing:.3em;text-transform:uppercase;padding:.95em 2.1em;border:1px solid var(--gold2);color:#f6e7c4;background:rgba(0,0,0,.25);border-radius:40px;cursor:pointer;backdrop-filter:blur(4px);position:relative;overflow:hidden}
 .btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,240,200,.45) 50%,transparent 70%);transform:translateX(-100%);animation:shine 2.6s ease-in-out infinite}
@@ -89,7 +89,8 @@ section{position:relative;z-index:2}
 @keyframes draw{to{stroke-dashoffset:0}}
 .cross{width:26px;height:38px;margin:0 auto 6px;color:var(--gold)}.rings{height:38px}.dove{height:46px}.ev .ic{height:46px}.orn svg{height:18px}
 .names{font-size:clamp(3rem,13vw,6rem);line-height:.95;position:relative}
-.names .amp{display:block;font-size:.55em;color:var(--gold);margin:.05em 0}
+.names .amp{display:inline;font-size:.7em;color:var(--gold);margin:0 .28em}
+.fit{white-space:nowrap;display:block;max-width:100%;overflow:visible}.fit span{white-space:nowrap}
 .hero .date{font-family:"Playfair Display";letter-spacing:.35em;font-size:clamp(.95rem,3.6vw,1.2rem);margin-top:18px;display:flex;gap:.9em;align-items:center;justify-content:center}
 .hero .date i{width:44px;height:1px;background:var(--gold)}
 .scroll{margin-top:34px;font-size:.7rem;letter-spacing:.35em;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px}
@@ -346,10 +347,10 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
   <div class="light"></div>
   <div class="doors"><div class="door l"></div><div class="door r"></div></div>
   <div class="arch"></div>
-  <div class="seal pulse" id="seal" role="button" aria-label="Mở thiệp"><svg viewBox="0 0 80 80"><text x="40" y="52" text-anchor="middle" font-family="Ephesis" font-size="40" fill="#f3dfae">L&amp;N</text><path d="M40 8v14M34 13h12" stroke="#f3dfae" stroke-width="2"/></svg></div>
+  <div class="seal pulse" id="seal" role="button" aria-label="Mở thiệp"><svg viewBox="0 0 80 80"><text x="40" y="54" text-anchor="middle" font-family="Ephesis" font-size="30" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#f3dfae">L&amp;N</text><path d="M40 8v14M34 13h12" stroke="#f3dfae" stroke-width="2"/></svg></div>
   <div class="gate-ui">
    <div class="caps" style="color:#e3c98c">Thiệp mời Thánh Lễ Hôn Phối</div>
-   <div class="names">Đức Long &amp; Ánh Nguyệt</div>
+   <div class="names fit">Đức Long &amp; Ánh Nguyệt</div>
    <div class="d">25 · 11 · 2026</div>
    <button class="btn" id="openBtn">Mở cửa thánh đường</button>
   </div>
@@ -378,7 +379,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
   <svg class="border" viewBox="0 0 408 576" preserveAspectRatio="none"><path d="M6 570V200C6 90 96 6 204 6S402 90 402 200v370z" fill="none" stroke="#c9a052" stroke-width="1.5"/><path d="M18 560V204C18 104 102 20 204 20S390 104 390 204v356z" fill="none" stroke="#c9a052" stroke-width=".7" opacity=".7"/></svg>
  </div>
  <svg class="cross h"><use href="#crossI"/></svg>
- <h1 class="names script h"><span class="gold">Đức Long</span><span class="amp">&amp;</span><span class="gold">Ánh Nguyệt</span></h1>
+ <h1 class="names script h fit"><span class="gold">Đức Long</span><span class="amp">&amp;</span><span class="gold">Ánh Nguyệt</span></h1>
  <div class="date h"><i></i>25 . 11 . 2026<i></i></div>
  <div class="h" style="font-style:italic;color:var(--muted);margin-top:6px">Nhằm ngày 17 tháng 10 năm Bính Ngọ</div>
  <div class="scroll h">CUỘN XUỐNG<b></b></div>
@@ -499,7 +500,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 <footer>
  <svg class="cross" style="width:22px"><use href="#crossI"/></svg>
  <div class="caps rv" style="margin-top:14px">Thank you</div>
- <div class="names script rv"><span class="gold">Đức Long &amp; Ánh Nguyệt</span></div>
+ <div class="names script rv fit"><span class="gold">Đức Long &amp; Ánh Nguyệt</span></div>
  <div class="verse rv"><p>Tình yêu không bao giờ mất được.</p><cite class="caps">1 Cô-rin-tô 13, 8</cite></div>
  <p class="rv" style="color:var(--muted);font-style:italic">Rất hân hạnh được đón tiếp quý khách.</p>
 <p style="margin-top:40px;font-size:.72rem;color:#a89a82;line-height:1.6">Nhạc nền: "Can't Help Falling in Love" (violin cover) – <a href="https://www.youtube.com/watch?v=dbVR391HzT8" style="color:inherit">Daniel Jang</a>, phát qua trình phát YouTube; bản quyền thuộc tác giả và nghệ sĩ.<br>Nhạc dự phòng: "Canon in D Major" – Kevin MacLeod (incompetech.com), giấy phép <a href="https://creativecommons.org/licenses/by/3.0/" style="color:inherit">CC BY 3.0</a>, qua <a href="https://commons.wikimedia.org/wiki/File:Canon_in_D_Major_(ISRC_USUAN1100301).mp3" style="color:inherit">Wikimedia Commons</a>, đã cắt fade · "Schubert's Ave Maria" – Free Tim, <a href="https://commons.wikimedia.org/wiki/File:Free_Tim_-_Schuberts_Ave_Maria.ogg" style="color:inherit">CC0</a></p>
@@ -617,7 +618,7 @@ function build(i){const c=SC[i],el=document.createElement('div');el.className='s
  el.style.cssText=`--d:${(c.d||7000)+1600}ms;--x0:${k[0]}%;--y0:${k[1]}%;--s0:${k[2]};--x1:${k[3]}%;--y1:${k[4]}%;--s1:${k[5]}`;
  const first=!c.nocard&&(i===0||SC[i-1].c!==c.c);const tb=first?1.7:.4;let t=tb,h='';
  if(c.chap){h+=`<div class="chap">${words(c.chap,t)}</div>`;t+=.4}else{h+=`<div class="chap">${words('Chương '+c.c+' · '+c.t,t)}</div>`;t+=.4}
- if(c.h){h+=`<div class="h">${words(c.h,t)}</div>`;t+=c.h.split(' ').length*.12+.5}
+ if(c.h){h+=`<div class="h${c.h.includes("&")?" fit":""}">${words(c.h,t)}</div>`;t+=c.h.split(' ').length*.12+.5}
  (c.l||[]).forEach(x=>{h+=`<div class="l">${words(x,t)}</div>`;t+=x.split(' ').length*.12+.25});
  (c.f||[]).forEach(x=>{h+=`<div class="f">${words(x,t)}</div>`;t+=.35});
  if(c.cd){h+=`<div class="cdm w" style="--wd:${t}s" id="scd"></div>`;t+=.4}
@@ -681,6 +682,11 @@ renderW();
 document.querySelectorAll('#chips button').forEach(b=>b.onclick=()=>{document.getElementById('wm').value=b.textContent});
 document.getElementById('wf').onsubmit=e=>{e.preventDefault();const a=JSON.parse(localStorage.getItem(K)||'[]');a.unshift({n:wn.value.trim(),a:wa.value,m:wm.value.trim()});localStorage.setItem(K,JSON.stringify(a.slice(0,30)));renderW();wm.value='';document.getElementById('wnote').textContent='Cảm ơn bạn! Cô dâu chú rể đã nhận được tình cảm của bạn ♡';burst()};
 function burst(){for(let i=0;i<24;i++){const q=mk();q.x=W/2+(Math.random()-.5)*80;q.y=H*.6;q.vy=-2-Math.random()*3;q.vx=(Math.random()-.5)*4;P.push(q)}setTimeout(()=>P.splice(N),6000)}
+</script>
+<script>
+function fitAll(){document.querySelectorAll('.fit').forEach(el=>{el.style.fontSize='';const cw=el.clientWidth;if(!cw)return;const sw=el.scrollWidth;if(sw>cw){const f=parseFloat(getComputedStyle(el).fontSize);el.style.fontSize=Math.max(16,f*cw/sw*.93)+'px'}})}
+addEventListener('resize',fitAll);addEventListener('load',fitAll);document.fonts&&document.fonts.ready.then(fitAll);fitAll();
+new MutationObserver(()=>{clearTimeout(window._ft);window._ft=setTimeout(fitAll,30)}).observe(document.getElementById('story')||document.body,{childList:true,subtree:true});
 </script>
 </body>
 </html>
