@@ -101,7 +101,7 @@ section.hero{padding:64px 0 72px}
 @keyframes mparty{0%{transform:none}15%{transform:translateY(6px) scale(1.15,.85)}40%{transform:translateY(-30px) rotate(-10deg) scale(.92,1.1)}60%{transform:translateY(-30px) rotate(350deg)}85%{transform:translateY(3px) rotate(360deg) scale(1.1,.9)}100%{transform:rotate(360deg)}}
 .bee .fx{position:absolute;left:-26px;top:-14px;font:700 15px/1 system-ui,sans-serif;color:#fff;background:#1e1b4b;padding:5px 8px;border-radius:12px 12px 12px 2px;opacity:0;transform:scale(.6);transition:.25s;pointer-events:none;white-space:nowrap}.bee .fx.on{opacity:1;transform:none}
 .bee .ht{position:absolute;left:40%;top:10%;color:#f43f5e;font-size:20px;pointer-events:none;animation:mht 1s ease-out forwards}@keyframes mht{from{opacity:1;transform:translateY(0) scale(.6)}to{opacity:0;transform:translateY(-46px) translateX(var(--dx,0)) scale(1.3)}}
-.amb{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}.page-head{position:relative}.page-head>:not(.amb){position:relative;z-index:1}.page-head>.hico{position:absolute!important}
+.amb{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}.page-head,.tx{position:relative}.page-head>:not(.amb),.tx>:not(.amb){position:relative;z-index:1}.page-head>.hico{position:absolute!important}
 .amb i{position:absolute;bottom:-20px;display:block;opacity:0;animation:mfl var(--d,9s) linear var(--w,0s) infinite;will-change:transform}
 @keyframes mfl{0%{opacity:0;transform:translate(0,0) rotate(0)}10%{opacity:var(--o,.7)}90%{opacity:var(--o,.7)}100%{opacity:0;transform:translate(var(--x,20px),-260px) rotate(var(--r,180deg))}}
 .amb.a-elec i{width:3px;height:12px;border-radius:2px;background:#facc15;box-shadow:0 0 8px #fde047;--r:20deg}

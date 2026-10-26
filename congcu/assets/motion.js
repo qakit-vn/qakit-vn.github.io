@@ -1,5 +1,5 @@
 (function(){var b=document.body,th=(b.className.match(/th-(\w+)/)||[])[1]||(b.dataset.bee==='tet'?'tet':''),S=document.currentScript,B=S?S.src.replace(/motion\.js.*$/,''):'';
-var h=document.querySelector('.page-head')||document.querySelector('.tet');
+var h=document.querySelector('.page-head')||document.querySelector('.tx');
 if(h&&th){var a=document.createElement('div'),n=innerWidth<700?7:12;a.className='amb a-'+th;a.setAttribute('aria-hidden','true');for(var i=0;i<n;i++){var e=document.createElement('i');e.style.cssText='left:'+(Math.random()*96|0)+'%;--d:'+(7+Math.random()*7).toFixed(1)+'s;--w:'+(-Math.random()*12).toFixed(1)+'s;--x:'+((Math.random()*80-40)|0)+'px';a.appendChild(e)}h.insertBefore(a,h.firstChild)}
 var r=document.querySelector('.res'),big=r&&r.querySelector('.big'),busy=0,lastAct=Date.now(),cf=0,lastBoom=0;
 function num(t){var m=t.match(/-?\d{1,3}(?:\.\d{3})+|-?\d+/);if(!m||/\d,\d/.test(t))return null;return{s:m[0],v:+m[0].replace(/\./g,''),i:m.index}}
