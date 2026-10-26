@@ -20,7 +20,7 @@
 <style>
 :root{--ivory:#fbf7ef;--cream:#f4ecdd;--gold:#b48a3c;--gold2:#d9b86a;--ink:#3b3226;--muted:#7a6d5a;--sage:#8a9a83;--blue:#7d93a8;--wine:#8e2c35}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 body{background:var(--ivory);color:var(--ink);font-family:"Cormorant Garamond",serif;font-size:19px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.locked{overflow:hidden;height:100vh}
 img{display:block;max-width:100%}
@@ -68,6 +68,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 
 /* music */
 #music{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:60;width:48px;height:48px;border-radius:50%;border:1px solid var(--gold2);background:rgba(251,247,239,.85);backdrop-filter:blur(6px);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(80,60,30,.18)}
+#autos{position:fixed;right:16px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:60;width:40px;height:40px;border-radius:50%;border:1px solid var(--gold2);background:rgba(251,247,239,.85);backdrop-filter:blur(6px);display:grid;place-items:center;cursor:pointer;color:var(--gold);box-shadow:0 6px 18px rgba(80,60,30,.18);right:20px}#autos svg{width:16px;grid-area:1/1}#autos .pa,#autos.on .pl{display:none}#autos.on .pa{display:block}#autos .bars{position:absolute;bottom:-17px;font-size:.55rem;letter-spacing:.15em;color:var(--muted);white-space:nowrap}
 #music svg{width:22px;color:var(--gold)}
 #music.on svg{animation:spin 6s linear infinite}
 #music .bars{position:absolute;bottom:-18px;font-size:.6rem;letter-spacing:.2em;color:var(--muted)}
@@ -260,6 +261,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 </div>
 <div class="flash"></div>
 <canvas id="fx"></canvas>
+<button id="autos" aria-label="Tự cuộn trang" aria-pressed="false"><svg class="pl" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5l11 7-11 7z"/></svg><svg class="pa" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><span class="bars">TỰ CUỘN</span></button>
 <button id="music" aria-label="Bật/tắt nhạc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span class="bars" id="mlabel">NHẠC</span></button>
 
 <section class="hero" id="top">
@@ -383,6 +385,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
  <div class="names script rv"><span class="gold">Đức Long &amp; Ánh Nguyệt</span></div>
  <div class="verse rv"><p>Tình yêu không bao giờ mất được.</p><cite class="caps">1 Cô-rin-tô 13, 8</cite></div>
  <p class="rv" style="color:var(--muted);font-style:italic">Rất hân hạnh được đón tiếp quý khách.</p>
+<p style="margin-top:40px;font-size:.72rem;color:#a89a82;line-height:1.6">Nhạc: "Canon in D Major" – Kevin MacLeod (incompetech.com), giấy phép <a href="https://creativecommons.org/licenses/by/3.0/" style="color:inherit">CC BY 3.0</a>, qua <a href="https://commons.wikimedia.org/wiki/File:Canon_in_D_Major_(ISRC_USUAN1100301).mp3" style="color:inherit">Wikimedia Commons</a>, đã cắt fade · "Schubert's Ave Maria" – Free Tim, <a href="https://commons.wikimedia.org/wiki/File:Free_Tim_-_Schuberts_Ave_Maria.ogg" style="color:inherit">CC0</a></p>
 </footer>
 
 <div id="lb"><button class="x" aria-label="Đóng">×</button><button class="p" aria-label="Trước">‹</button><img alt=""><button class="n" aria-label="Sau">›</button><div class="c"></div></div>
@@ -402,7 +405,7 @@ const G=[0,3,8,11,1,19,16,4,22,2,18,24,5,27,7,20,36,26,29,31,43,33,38,40,32,39,2
 const gal=document.getElementById('gal');
 G.forEach((n,i)=>{const id=String(n).padStart(2,'0');const a=document.createElement('a');a.href='img/'+id+'.webp';a.className='rvs';a.innerHTML=`<img src="img/${id}t.webp" alt="Ảnh cưới ${i+1}" loading="lazy">`;a.onclick=e=>{e.preventDefault();openLB(i)};gal.appendChild(a)});
 const lb=document.getElementById('lb'),lbi=lb.querySelector('img'),lbc=lb.querySelector('.c');let cur=0;
-function openLB(i){cur=(i+G.length)%G.length;lbi.src='img/'+String(G[cur]).padStart(2,'0')+'.webp';lbi.style.animation='none';lbi.offsetHeight;lbi.style.animation='';lbc.textContent=(cur+1)+' / '+G.length;lb.classList.add('on')}
+function openLB(i){if(asOn)setAS(false);cur=(i+G.length)%G.length;lbi.src='img/'+String(G[cur]).padStart(2,'0')+'.webp';lbi.style.animation='none';lbi.offsetHeight;lbi.style.animation='';lbc.textContent=(cur+1)+' / '+G.length;lb.classList.add('on')}
 lb.querySelector('.x').onclick=()=>lb.classList.remove('on');lb.querySelector('.p').onclick=e=>{e.stopPropagation();openLB(cur-1)};lb.querySelector('.n').onclick=e=>{e.stopPropagation();openLB(cur+1)};
 lb.onclick=e=>{if(e.target===lb)lb.classList.remove('on')};
 document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')openLB(cur-1);if(e.key==='ArrowRight')openLB(cur+1)});
@@ -427,20 +430,33 @@ let run=true;document.addEventListener('visibilitychange',()=>run=!document.hidd
 function loop(t){if(run){cx.clearRect(0,0,W,H);for(const q of P){q.y+=q.vy;q.ph+=.02;q.x+=q.vx+Math.sin(q.ph)*.5;q.a+=q.va;if(q.y>H+20)Object.assign(q,mk(1));cx.save();cx.translate(q.x,q.y);cx.rotate(q.a);if(q.p){cx.scale(1,Math.abs(Math.cos(q.ph*.7))*.6+.4);cx.beginPath();cx.moveTo(0,-q.r);cx.bezierCurveTo(q.r,-q.r*.6,q.r*.7,q.r*.7,0,q.r);cx.bezierCurveTo(-q.r*.7,q.r*.7,-q.r,-q.r*.6,0,-q.r);cx.fillStyle=`rgba(${q.c},.9)`;cx.shadowColor='rgba(150,110,50,.25)';cx.shadowBlur=4;cx.fill()}else{cx.beginPath();cx.arc(0,0,q.r,0,7);cx.fillStyle=`rgba(${q.c},${.5+.5*Math.sin(q.ph*3)})`;cx.shadowColor='rgba(255,210,120,.9)';cx.shadowBlur=8;cx.fill()}cx.restore()}}requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 
-// music: soft synthesized organ pad + bell arpeggio (Pachelbel Canon progression, public domain)
-let ac,mOn=false,mTimer,master;
-const prog=[[50,57,62,66],[45,57,61,64],[47,54,59,62],[42,54,57,61],[43,55,59,62],[38,54,57,62],[43,55,59,62],[45,57,61,64]];
-const hz=m=>440*Math.pow(2,(m-69)/12);
-function note(m,t,d,v,type){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=hz(m);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+(type==='sine'?.02:.6));g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.1)}
-let bar=0,nextT=0;
-function sched(){while(nextT<ac.currentTime+1.5){const ch=prog[bar%8];ch.forEach((m,i)=>note(m,nextT,2.6,i?.045:.06,'triangle'));const arp=[ch[1]+12,ch[2]+12,ch[3]+12,ch[2]+12];arp.forEach((m,i)=>note(m,nextT+i*.55,1.8,.05,'sine'));nextT+=2.2;bar++}}
-function toggleMusic(force){if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.0;const cv2=ac.createConvolver();const len=ac.sampleRate*2.5,buf=ac.createBuffer(2,len,ac.sampleRate);for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.5)}cv2.buffer=buf;const wet=ac.createGain();wet.gain.value=.6;master.connect(ac.destination);master.connect(cv2);cv2.connect(wet);wet.connect(ac.destination)}
- mOn=force!==undefined?force:!mOn;document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC';
- if(mOn){ac.resume();nextT=ac.currentTime+.1;master.gain.cancelScheduledValues(ac.currentTime);master.gain.linearRampToValueAtTime(.9,ac.currentTime+2);sched();mTimer=setInterval(sched,500)}else{clearInterval(mTimer);master.gain.linearRampToValueAtTime(0,ac.currentTime+.8)}}
+// music: real recordings (Canon in D – Kevin MacLeod CC BY 3.0; Ave Maria – Free Tim CC0)
+const TR=['audio/canon.mp3','audio/ave.mp3'];let au=null,ti=0,mOn=false,fadeT;
+function mkAu(){au=new Audio();au.preload='none';au.src=TR[ti];au.volume=0;au.addEventListener('ended',()=>{ti=(ti+1)%TR.length;au.src=TR[ti];au.play().catch(()=>{})})}
+function fade(to,ms){clearInterval(fadeT);const st=au.volume,t0=performance.now();fadeT=setInterval(()=>{const k=Math.min(1,(performance.now()-t0)/ms);au.volume=st+(to-st)*k;if(k>=1){clearInterval(fadeT);if(!to)au.pause()}},50)}
+function toggleMusic(force){if(!au)mkAu();mOn=force!==undefined?force:!mOn;document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC';
+ if(mOn){au.play().then(()=>fade(.85,3000)).catch(()=>{mOn=false;document.getElementById('music').classList.remove('on');document.getElementById('mlabel').textContent='NHẠC'})}else fade(0,800)}
 document.getElementById('music').onclick=()=>toggleMusic();
 
+// auto-scroll
+const asBtn=document.getElementById('autos');let asOn=false,asUser=true,asIdle,asLast=0,asHold=0,asPos=0;
+const stops=[...document.querySelectorAll('.verse,#moi .invite,.cd,#le .events,#khoanhkhac,#album,#loichuc,footer')];
+const SPEED=innerWidth<700?38:48; // px per second
+function setAS(on,user){asOn=on;if(user!==undefined)asUser=on;asBtn.classList.toggle('on',on);asBtn.setAttribute('aria-pressed',on);if(on){asPos=scrollY;asLast=0;requestAnimationFrame(asStep)}}
+function asStep(t){if(!asOn)return;if(!asLast)asLast=t;const dt=Math.min(64,t-asLast);asLast=t;
+ if(lb.classList.contains('on')){requestAnimationFrame(asStep);return}
+ if(asHold>0){asHold-=dt}else{
+  const prev=asPos;asPos+=SPEED*dt/1000;
+  for(const el of stops){const y=el.getBoundingClientRect().top+scrollY-innerHeight*.18;if(!el._done&&prev<y&&asPos>=y){el._done=1;asHold=2600;asPos=y;break}}
+  const max=document.documentElement.scrollHeight-innerHeight;if(asPos>=max-1){asPos=max;window.scrollTo(0,max);setAS(false,false);return}
+  window.scrollTo(0,asPos)}
+ requestAnimationFrame(asStep)}
+function userAct(){if(!asUser)return;if(asOn)setAS(false);clearTimeout(asIdle);asIdle=setTimeout(()=>{if(asUser&&!lb.classList.contains('on')&&scrollY<document.documentElement.scrollHeight-innerHeight-2)setAS(true)},4000)}
+['wheel','touchstart','touchmove','keydown','mousedown'].forEach(ev=>addEventListener(ev,e=>{if(e.target.closest&&e.target.closest('#autos,#music'))return;userAct()},{passive:true}));
+asBtn.onclick=()=>{clearTimeout(asIdle);if(asOn)setAS(false,false);else setAS(true,true)};
+
 // opening
-function openGate(){const g=document.getElementById('gate');if(g.classList.contains('open'))return;g.classList.add('open');setTimeout(()=>{document.body.classList.remove('locked');document.body.classList.add('ready')},1500);toggleMusic(true)}
+function openGate(){const g=document.getElementById('gate');if(g.classList.contains('open'))return;g.classList.add('open');toggleMusic(true);setTimeout(()=>{document.body.classList.remove('locked');document.body.classList.add('ready')},1500);setTimeout(()=>{if(!asOn&&scrollY<20){asUser=true;setAS(true)}},4200)}
 document.getElementById('openBtn').onclick=openGate;document.getElementById('seal').onclick=openGate;
 if(location.hash==='#skip'){document.getElementById('gate').style.display='none';document.body.classList.remove('locked');document.body.classList.add('ready')}
 
