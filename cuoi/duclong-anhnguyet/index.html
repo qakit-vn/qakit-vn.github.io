@@ -482,6 +482,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
  <p class="note" style="margin-top:18px">Nội dung chuyển khoản gợi ý: “Mung cuoi Long Nguyet”</p>
 </section>
 <div id="toast"></div>
+<div style="position:fixed;left:-9999px;top:0;width:200px;height:113px;overflow:hidden" aria-hidden="true"><div id="ytp"></div></div>
 <section class="wrap" id="loichuc">
  <div class="title rv"><div class="caps">Sổ lưu bút</div><h2>Lời chúc</h2><div class="orn"><svg><use href="#doveI"/></svg></div></div>
  <form class="wish rv" id="wf">
@@ -501,7 +502,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
  <div class="names script rv"><span class="gold">Đức Long &amp; Ánh Nguyệt</span></div>
  <div class="verse rv"><p>Tình yêu không bao giờ mất được.</p><cite class="caps">1 Cô-rin-tô 13, 8</cite></div>
  <p class="rv" style="color:var(--muted);font-style:italic">Rất hân hạnh được đón tiếp quý khách.</p>
-<p style="margin-top:40px;font-size:.72rem;color:#a89a82;line-height:1.6">Nhạc: "Canon in D Major" – Kevin MacLeod (incompetech.com), giấy phép <a href="https://creativecommons.org/licenses/by/3.0/" style="color:inherit">CC BY 3.0</a>, qua <a href="https://commons.wikimedia.org/wiki/File:Canon_in_D_Major_(ISRC_USUAN1100301).mp3" style="color:inherit">Wikimedia Commons</a>, đã cắt fade · "Schubert's Ave Maria" – Free Tim, <a href="https://commons.wikimedia.org/wiki/File:Free_Tim_-_Schuberts_Ave_Maria.ogg" style="color:inherit">CC0</a></p>
+<p style="margin-top:40px;font-size:.72rem;color:#a89a82;line-height:1.6">Nhạc nền: "Can't Help Falling in Love" – Elvis Presley, phát qua trình phát YouTube chính thức (<a href="https://www.youtube.com/watch?v=vGJTaP6anOU" style="color:inherit">ElvisPresleyVEVO</a>); bản quyền thuộc chủ sở hữu.<br>Nhạc dự phòng: "Canon in D Major" – Kevin MacLeod (incompetech.com), giấy phép <a href="https://creativecommons.org/licenses/by/3.0/" style="color:inherit">CC BY 3.0</a>, qua <a href="https://commons.wikimedia.org/wiki/File:Canon_in_D_Major_(ISRC_USUAN1100301).mp3" style="color:inherit">Wikimedia Commons</a>, đã cắt fade · "Schubert's Ave Maria" – Free Tim, <a href="https://commons.wikimedia.org/wiki/File:Free_Tim_-_Schuberts_Ave_Maria.ogg" style="color:inherit">CC0</a></p>
 </footer>
 
 <div id="lb"><button class="x" aria-label="Đóng">×</button><button class="p" aria-label="Trước">‹</button><img alt=""><button class="n" aria-label="Sau">›</button><div class="c"></div></div>
@@ -546,12 +547,25 @@ let run=true;document.addEventListener('visibilitychange',()=>run=!document.hidd
 function loop(t){if(run){cx.clearRect(0,0,W,H);for(const q of P){q.y+=q.vy;q.ph+=.02;q.x+=q.vx+Math.sin(q.ph)*.5;q.a+=q.va;if(q.y>H+20)Object.assign(q,mk(1));cx.save();cx.translate(q.x,q.y);cx.rotate(q.a);if(q.heart){cx.rotate(-q.a);const r=q.r*.7;cx.beginPath();cx.moveTo(0,r*.6);cx.bezierCurveTo(-r*1.6,-r*.4,-r*.6,-r*1.6,0,-r*.5);cx.bezierCurveTo(r*.6,-r*1.6,r*1.6,-r*.4,0,r*.6);cx.fillStyle='rgba(206,90,105,.85)';cx.fill()}else if(q.p){cx.scale(1,Math.abs(Math.cos(q.ph*.7))*.6+.4);cx.beginPath();cx.moveTo(0,-q.r);cx.bezierCurveTo(q.r,-q.r*.6,q.r*.7,q.r*.7,0,q.r);cx.bezierCurveTo(-q.r*.7,q.r*.7,-q.r,-q.r*.6,0,-q.r);cx.fillStyle=`rgba(${q.c},.9)`;cx.shadowColor='rgba(150,110,50,.25)';cx.shadowBlur=4;cx.fill()}else{cx.beginPath();cx.arc(0,0,q.r,0,7);cx.fillStyle=`rgba(${q.c},${.5+.5*Math.sin(q.ph*3)})`;cx.shadowColor='rgba(255,210,120,.9)';cx.shadowBlur=8;cx.fill()}cx.restore()}}requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 
-// music: real recordings (Canon in D – Kevin MacLeod CC BY 3.0; Ave Maria – Free Tim CC0)
+// music: primary = official YouTube embed (Elvis Presley – Can't Help Falling in Love, ElvisPresleyVEVO, id vGJTaP6anOU);
+// fallback = CC recordings (Canon in D – Kevin MacLeod CC BY 3.0; Ave Maria – Free Tim CC0)
+const YTID='vGJTaP6anOU';let yt=null,ytReady=false,ytFail=false,useYT=true,ytFadeT;
+window.onYouTubeIframeAPIReady=()=>{yt=new YT.Player('ytp',{host:'https://www.youtube-nocookie.com',videoId:YTID,width:200,height:113,
+ playerVars:{autoplay:0,controls:0,disablekb:1,fs:0,playsinline:1,loop:1,playlist:YTID,rel:0,modestbranding:1,origin:location.origin},
+ events:{onReady:()=>{ytReady=true;yt.setVolume(0)},onError:()=>ytFallback(),onStateChange:e=>{if(e.data===0){yt.seekTo(0);yt.playVideo()}if(e.data===1&&mOn)ytFade(80,3000)}}})};
+(function(){const t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';t.onerror=()=>ytFallback();document.head.appendChild(t)})();
+function ytFade(to,ms){clearInterval(ytFadeT);let v=yt.getVolume?yt.getVolume():0;const st=v,t0=performance.now();ytFadeT=setInterval(()=>{const k=Math.min(1,(performance.now()-t0)/ms);yt.setVolume(Math.round(st+(to-st)*k));if(k>=1){clearInterval(ytFadeT);if(!to)yt.pauseVideo()}},80)}
+function ytFallback(){if(ytFail)return;ytFail=true;useYT=false;try{yt&&yt.stopVideo()}catch(e){}if(mOn){mOn=false;toggleMusic(true)}}
 const TR=['audio/canon.mp3','audio/ave.mp3'];let au=null,ti=0,mOn=false,fadeT;
 function mkAu(){au=new Audio();au.preload='none';au.src=TR[ti];au.volume=0;au.addEventListener('ended',()=>{ti=(ti+1)%TR.length;au.src=TR[ti];au.play().catch(()=>{})})}
 function fade(to,ms){clearInterval(fadeT);const st=au.volume,t0=performance.now();fadeT=setInterval(()=>{const k=Math.min(1,(performance.now()-t0)/ms);au.volume=st+(to-st)*k;if(k>=1){clearInterval(fadeT);if(!to)au.pause()}},50)}
-function toggleMusic(force){if(!au)mkAu();mOn=force!==undefined?force:!mOn;document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC';
- if(mOn){au.play().then(()=>fade(.85,3000)).catch(()=>{mOn=false;document.getElementById('music').classList.remove('on');document.getElementById('mlabel').textContent='NHẠC'})}else fade(0,800)}
+function setMUI(){document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC'}
+function toggleMusic(force){mOn=force!==undefined?force:!mOn;setMUI();
+ if(useYT&&!ytFail){
+  if(!ytReady){if(mOn){const w=setInterval(()=>{if(ytReady){clearInterval(w);if(mOn){yt.playVideo()}}},200);setTimeout(()=>{if(!ytReady)ytFallback()},6000)}return}
+  if(mOn){yt.setVolume(0);yt.playVideo();setTimeout(()=>{if(mOn&&!ytFail&&yt.getPlayerState&&yt.getPlayerState()!==1&&yt.getPlayerState()!==3)ytFallback()},5000)}else ytFade(0,800);return}
+ if(!au)mkAu();
+ if(mOn){au.play().then(()=>fade(.85,3000)).catch(()=>{mOn=false;setMUI()})}else fade(0,800)}
 document.getElementById('music').onclick=()=>toggleMusic();
 
 // auto-scroll
