@@ -17,7 +17,7 @@ $('out').innerHTML=`<div class="lbl">Thuế TNCN phải nộp/tháng</div><div c
 var s=document.querySelector('script[src$="lib.js"]'),B=s?s.src.replace(/lib\.js.*$/,''):'';
 function go(){var th=(document.body.className.match(/th-(\w+)/)||[])[1],h=document.querySelector('.hico'),r=document.querySelector('.res')||document.querySelector('.tcd'),bv=document.body.dataset.bee||'';
 if(th==='moon'&&h&&matchMedia('(min-width:900px)').matches){import(B+'moon.min.js').then(function(m){h.classList.add('m3');m.init(h)}).catch(function(){})}
-if(r){var bw=document.createElement('div'),im=new Image(),tm;bw.className='bee';bw.title='Siêng';im.alt='';im.decoding='async';im.src=B+'bees/bee-'+(bv||'pro')+'.webp';bw.appendChild(im);r.appendChild(bw);
+if(r){var bw=document.createElement('div'),im=new Image(),tm;bw.className='bee';bw.title='Siêng';im.alt='';im.decoding='async';im.src=B+'bees/bee-'+(bv||'pro')+'.webp';var bf=document.createElement('span'),ik=new Image();bf.className='bf';ik.className='bk';ik.alt='';ik.decoding='async';setTimeout(function(){ik.src=B+'bees/bee-'+(bv||'pro')+'-c.webp'},1500);bf.appendChild(im);bf.appendChild(ik);bw.appendChild(bf);r.appendChild(bw);
  function play(n,ms){bw.classList.remove('s-look','s-cheer','s-jump');void bw.offsetWidth;if(n)bw.classList.add('s-'+n);if(ms){clearTimeout(bw._t);bw._t=setTimeout(function(){bw.classList.remove('s-'+n)},ms)}}
  im.onload=function(){bw.classList.add('on');if(bv==='tet')play('cheer',1400)};
  function pop(){r.classList.remove('pop');void r.offsetWidth;r.classList.add('pop')}
