@@ -73,4 +73,4 @@ const PRICE={coban:49000,caocap:99000,trongoi:199000};
 $('#of').onsubmit=e=>{e.preventDefault();syncOrder();const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let c='';for(let i=0;i<6;i++)c+=A[Math.random()*A.length|0];const f=Object.fromEntries(new FormData($('#of')));const amt=PRICE[f.goi];const info='TC '+c;
  $('#oc').textContent='TC'+c;$('#oa').textContent=amt.toLocaleString('vi-VN')+'đ';$('#on').textContent=info;$('#qi').src=`https://img.vietqr.io/image/MB-88393088888-compact2.png?amount=${amt}&addInfo=${encodeURIComponent(info)}&accountName=PHAM%20HOANG%20LONG`;$('#qr').style.display='block';$('#qr').scrollIntoView({behavior:'smooth'});
  fetch('https://formsubmit.co/ajax/f124244856ae4a7d19b7546e4e5a323f',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.assign({_subject:'Đơn thiệp cưới TC'+c,ma_don:'TC'+c,loai:'thiepcuoi',so_tien:amt},f))}).catch(()=>{})};
-</script><script src="/thiepcuoi/engine/feedback.js" defer></script></body></html>
+</script><script src="/thiepcuoi/engine/feedback.js" defer></script><script src="/a.js" defer></script></body></html>
