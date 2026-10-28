@@ -14,7 +14,7 @@ SIDES={
    TA='Số 9 ngõ 32 đường 1 Đồng Vân, Đồng Tháp, Đan Phượng',MAPQ='Số 9 ngõ 32 đường 1 Đồng Vân, Đồng Tháp, Đan Phượng, Hà Nội',
    CAL=('20261128T090000Z','20261128T120000Z'),CH1B='02',yt='7KZ460xFFPs',
    ytTitle="Can't Help Falling In Love - Cello & Piano Cover (Brooklyn Duo)",  # from YouTube oEmbed
-   CREDIT='Nhạc: "Can\'t Help Falling In Love – Cello &amp; Piano Cover" – Brooklyn Duo, phát qua <a href="https://www.youtube.com/watch?v=7KZ460xFFPs" style="color:inherit">YouTube</a><br>'),
+   CREDIT='Nhạc: "Can\'t Help Falling In Love – Cello &amp; Piano Cover" – Brooklyn Duo (YouTube)<br>'),
 }
 T=open(os.path.join(D,'_src','template.html'),encoding='utf-8').read()
 def render(side,url,prefix):
