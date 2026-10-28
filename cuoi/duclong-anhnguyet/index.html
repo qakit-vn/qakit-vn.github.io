@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="Trân trọng kính mời quý khách đến dự Thánh Lễ Hôn Phối của Vũ Đức Long & Lê Ánh Nguyệt, 25.11.2026 tại Giáo xứ Thụy Ứng.">
 <meta property="og:title" content="Đức Long & Ánh Nguyệt · Thiệp mời Thánh Lễ Hôn Phối">
-<meta property="og:description" content="Thánh Lễ Hôn Phối 19:00 · 25.11.2026 · Giáo xứ Thụy Ứng. Tiệc cưới 10:00 · 29.11.2026.">
+<meta property="og:description" content="Thánh Lễ Hôn Phối 19:00 · 25.11.2026 · Giáo xứ Thụy Ứng. Tiệc cưới 10:00 · 29.11.2026 (nhà trai).">
 <meta property="og:image" content="https://qakit-vn.github.io/cuoi/duclong-anhnguyet/img/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:url" content="https://qakit-vn.github.io/cuoi/duclong-anhnguyet/">
@@ -257,8 +257,8 @@ footer .verse p{font-size:clamp(1.25rem,4.6vw,1.6rem)}
 .rv{opacity:0;transform:translateY(40px);transition:opacity 1.2s ease,transform 1.2s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 .rv.d1{transition-delay:.15s}.rv.d2{transition-delay:.3s}.rv.d3{transition-delay:.45s}
-.rvs{opacity:0;transform:scale(.94);filter:blur(6px);transition:1.4s cubic-bezier(.2,.8,.2,1)}
-.rvs.in{opacity:1;transform:none;filter:none}
+.rvs{opacity:0;transform:scale(.94);transition:opacity 1.2s ease,transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.rvs.in{opacity:1;transform:none}
 .hero .h{opacity:0;transform:translateY(24px);transition:1.4s cubic-bezier(.2,.8,.2,1)}
 body.ready .hero .h{opacity:1;transform:none}
 body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-child(3){transition-delay:.6s}body.ready .hero .h:nth-child(4){transition-delay:.9s}body.ready .hero .h:nth-child(5){transition-delay:1.2s}body.ready .hero .h:nth-child(6){transition-delay:1.5s}body.ready .hero .h:nth-child(7){transition-delay:1.8s}
@@ -305,8 +305,9 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 #story{position:fixed;inset:0;z-index:90;background:#0e0a06;overflow:hidden;display:none;user-select:none;-webkit-user-select:none;touch-action:none}
 #story.on{display:block}
 #story.out{opacity:0;transition:opacity 1.4s ease;pointer-events:none}
-.sc{position:absolute;inset:0;overflow:hidden;opacity:0;will-change:opacity,transform}
-.sc .bg{position:absolute;inset:-4%;background-size:cover;background-position:center;will-change:transform}
+.sc{position:absolute;inset:0;overflow:hidden;opacity:0;contain:strict;backface-visibility:hidden}
+.sc.live{will-change:opacity,transform}
+.sc .bg{position:absolute;inset:-4%;background-size:cover;background-position:center;background-color:#1e160e;will-change:transform;backface-visibility:hidden;transform:translate3d(0,0,0)}
 .sc.live .bg{animation:kbs var(--d) linear forwards}
 @keyframes kbs{from{transform:translate3d(var(--x0),var(--y0),0) scale(var(--s0))}to{transform:translate3d(var(--x1),var(--y1),0) scale(var(--s1))}}
 .sc .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,10,6,.55) 0%,rgba(14,10,6,0) 30%,rgba(14,10,6,.1) 50%,rgba(14,10,6,.82) 100%)}
@@ -317,8 +318,8 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 .sc .h{font-family:"Ephesis";font-size:clamp(3rem,13vw,5.4rem);line-height:1;text-shadow:0 4px 30px rgba(0,0,0,.5)}
 .sc .l{font-family:"Cormorant Garamond";font-style:italic;font-size:clamp(1.2rem,5vw,1.6rem);line-height:1.45;margin-top:12px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
 .sc .f{font-family:"Playfair Display";letter-spacing:.18em;font-size:clamp(.8rem,3.4vw,1rem);margin-top:14px;color:#f0dcaa;line-height:1.8}
-.sc .w{display:inline-block;opacity:0;transform:translateY(14px);filter:blur(6px);transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1),filter 1s ease;transition-delay:var(--wd)}
-.sc.txt .w{opacity:1;transform:none;filter:none}
+.sc .w{display:inline-block;opacity:0;transform:translate3d(0,14px,0);transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1);transition-delay:var(--wd)}
+.sc.txt .w{opacity:1;transform:none}
 /* title card */
 .tc{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#f6e7c4;background:radial-gradient(ellipse at center,rgba(14,10,6,.35),rgba(14,10,6,.85));opacity:0;pointer-events:none}
 .sc.card .tc{animation:tcard 2.6s ease forwards}
@@ -331,7 +332,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 .sc.in-fade{animation:tFade 1.6s ease forwards}
 @keyframes tFade{from{opacity:0}to{opacity:1}}
 .sc.in-blur{animation:tBlur 1.8s ease forwards}
-@keyframes tBlur{from{opacity:0;filter:blur(24px);transform:scale(1.08)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes tBlur{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
 .sc.in-iris{opacity:1;animation:tIris 1.9s cubic-bezier(.6,0,.2,1) forwards}
 @keyframes tIris{from{clip-path:inset(100% 0 0 0 round 50% 50% 0 0)}to{clip-path:inset(0 0 0 0 round 0)}}
 .sc.in-arch{opacity:1;animation:tArch 2s cubic-bezier(.6,0,.2,1) forwards}
@@ -486,10 +487,10 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
    <h3>Tiệc Cưới</h3>
    <div class="when"><div class="t">10:00</div><div class="day">29</div><div class="m">Tháng 11<br>2026</div></div>
    <div class="lunar">Chủ Nhật · nhằm ngày 21/10 năm Bính Ngọ</div>
-   <div class="place"><b>Tư gia nhà gái</b>Số 9 ngõ 32 đường 1 Đồng Vân, Đồng Tháp, Đan Phượng</div>
+   <div class="place"><b>Tư gia nhà trai</b>Thôn Ngưu Trì Thượng, xã Nam Trực, tỉnh Ninh Bình</div>
    <div class="acts">
-    <a class="b2 f" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=S%E1%BB%91%209%20ng%C3%B5%2032%20%C4%91%C6%B0%E1%BB%9Dng%201%20%C4%90%E1%BB%93ng%20V%C3%A2n%2C%20%C4%90%E1%BB%93ng%20Th%C3%A1p%2C%20%C4%90an%20Ph%C6%B0%E1%BB%A3ng%2C%20H%C3%A0%20N%E1%BB%99i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6-7-12a7 7 0 0 1 14 0c0 6-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Chỉ đường</a>
-    <a class="b2" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ti%E1%BB%87c%20c%C6%B0%E1%BB%9Bi%20%C4%90%E1%BB%A9c%20Long%20%26%20%C3%81nh%20Nguy%E1%BB%87t&dates=20261129T030000Z/20261129T060000Z&location=S%E1%BB%91%209%20ng%C3%B5%2032%20%C4%91%C6%B0%E1%BB%9Dng%201%20%C4%90%E1%BB%93ng%20V%C3%A2n%2C%20%C4%90%E1%BB%93ng%20Th%C3%A1p%2C%20%C4%90an%20Ph%C6%B0%E1%BB%A3ng&details=https%3A%2F%2Fqakit-vn.github.io%2Fcuoi%2Fduclong-anhnguyet%2F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Lưu lịch</a>
+    <a class="b2 f" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Th%C3%B4n%20Ng%C6%B0u%20Tr%C3%AC%20Th%C6%B0%E1%BB%A3ng%2C%20x%C3%A3%20Nam%20Tr%E1%BB%B1c%2C%20Ninh%20B%C3%ACnh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6-7-12a7 7 0 0 1 14 0c0 6-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Chỉ đường</a>
+    <a class="b2" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Ti%E1%BB%87c%20c%C6%B0%E1%BB%9Bi%20%C4%90%E1%BB%A9c%20Long%20%26%20%C3%81nh%20Nguy%E1%BB%87t&amp;dates=20261129T030000Z/20261129T060000Z&amp;location=Th%C3%B4n%20Ng%C6%B0u%20Tr%C3%AC%20Th%C6%B0%E1%BB%A3ng%2C%20x%C3%A3%20Nam%20Tr%E1%BB%B1c%2C%20t%E1%BB%89nh%20Ninh%20B%C3%ACnh&amp;details=https%3A%2F%2Fqakit-vn.github.io%2Fcuoi%2Fduclong-anhnguyet%2F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Lưu lịch</a>
    </div>
   </article>
  </div>
@@ -554,6 +555,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 <div id="lb"><button class="x" aria-label="Đóng">×</button><button class="p" aria-label="Trước">‹</button><img alt=""><button class="n" aria-label="Sau">›</button><div class="c"></div></div>
 
 <script>
+const SIDE={"side": "trai", "yt": null, "ytTitle": null};
 // rose window
 function rose(svg,full){const NS='http://www.w3.org/2000/svg';const cols=['#7d93a8','#b4485a','#d9b86a','#8a9a83','#5f7ea0','#c98b5a'];let h='<defs><radialGradient id="rg"><stop offset="0" stop-color="#fff8e6"/><stop offset="1" stop-color="#d9b86a"/></radialGradient></defs>';
  const ring=(n,r1,r2,w,o)=>{for(let i=0;i<n;i++){const a=(i/n)*Math.PI*2+o;const c=cols[(i+n)%cols.length];const x=Math.cos(a),y=Math.sin(a);const cx=x*(r1+r2)/2,cy=y*(r1+r2)/2;h+=`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${((r2-r1)/2).toFixed(1)}" ry="${w}" transform="rotate(${(a*180/Math.PI).toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)})" fill="${c}" fill-opacity="${full?.55:.9}" stroke="#b48a3c" stroke-width="1.2"/>`}};
@@ -595,7 +597,7 @@ requestAnimationFrame(loop);
 
 // music: Web Audio only (no <audio>/<video>/iframe) – "Sớm"; fallback Canon in D (Kevin MacLeod, CC BY 3.0)
 const TR=['audio/bg.mp3','audio/canon.mp3'];let AC=null,GN=null,SRC=null,BUF=null,mOn=false,ti=0,ldP=null,offT;
-const PRE=TR.map((u,i)=>i?null:fetch(u).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null));
+const PRE=TR.map((u,i)=>(i||SIDE.yt)?null:fetch(u).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null));
 function getAB(i){if(!PRE[i])PRE[i]=fetch(TR[i]).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null);return PRE[i]}
 function dec(ab){return new Promise((res,rej)=>{try{const p=AC.decodeAudioData(ab,res,rej);if(p&&p.then)p.then(res,rej)}catch(e){rej(e)}})}
 async function load(){for(;ti<TR.length;ti++){const ab=await getAB(ti);if(!ab)continue;try{BUF=await dec(ab.slice(0));return BUF}catch(e){}}return null}
@@ -605,11 +607,20 @@ function unlock(){if(!AC){const C=window.AudioContext||window.webkitAudioContext
 function startSrc(){if(SRC||!BUF)return;SRC=AC.createBufferSource();SRC.buffer=BUF;SRC.loop=true;SRC.connect(GN);SRC.start(0)}
 function ramp(to,sec){const t=AC.currentTime;GN.gain.cancelScheduledValues(t);GN.gain.setValueAtTime(GN.gain.value,t);GN.gain.linearRampToValueAtTime(to,t+sec)}
 function setMUI(){document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC'}
-function toggleMusic(force){mOn=force!==undefined?force:!mOn;setMUI();clearTimeout(offT);
+function toggleMusic(force){if(SIDE.yt)return ytToggle(force);mOn=force!==undefined?force:!mOn;setMUI();clearTimeout(offT);
  if(mOn){if(!unlock()){mOn=false;setMUI();return}AC.resume().catch(()=>{});(ldP=ldP||load()).then(b=>{if(!b){mOn=false;setMUI();return}if(!mOn)return;startSrc();ramp(.85,2.5)})}
  else if(AC){ramp(0,.8);offT=setTimeout(()=>{if(!mOn)AC.suspend().catch(()=>{})},900)}}
 document.addEventListener('visibilitychange',()=>{if(!AC)return;if(document.hidden)AC.suspend().catch(()=>{});else if(mOn)AC.resume().catch(()=>{})});
 document.getElementById('music').onclick=()=>toggleMusic();
+// YouTube IFrame Player (bride side): hidden embed, starts on the first tap, button = mute toggle
+let YP=null,ypReady=false,ypWant=false,ypStarted=false;
+if(SIDE.yt){const d=document.createElement('div');d.id='ytp';d.style.cssText='position:fixed;left:-9999px;top:0;width:200px;height:200px;opacity:0;pointer-events:none';document.body.appendChild(d);
+ window.onYouTubeIframeAPIReady=()=>{YP=new YT.Player('ytp',{videoId:SIDE.yt,playerVars:{autoplay:0,controls:0,loop:1,playlist:SIDE.yt,playsinline:1,rel:0},events:{onReady:()=>{ypReady=true;YP.setVolume(85);if(ypWant)ytApply()}}})};
+ const t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';document.head.appendChild(t);
+ document.getElementById('music').setAttribute('aria-label','Bật/tắt nhạc: '+SIDE.ytTitle);document.getElementById('music').title=SIDE.ytTitle}
+function ytApply(){if(!YP||!ypReady)return;if(mOn){YP.unMute();if(!ypStarted||YP.getPlayerState()!==1){YP.playVideo();ypStarted=true}}else{YP.mute()}}
+function ytToggle(force){mOn=force!==undefined?force:!mOn;ypWant=true;setMUI();ytApply()}
+document.addEventListener('visibilitychange',()=>{if(!SIDE.yt||!YP||!ypReady)return;if(document.hidden)YP.pauseVideo();else if(mOn)YP.playVideo()});
 
 // auto-scroll
 const asBtn=document.getElementById('autos');let asOn=false,asUser=true,asIdle,asLast=0,asHold=0,asPos=0;
@@ -648,12 +659,13 @@ const SC=[
  {c:'IV',t:'Chú rể',img:'14',tr:'arch',chap:'Chú rể',h:'Vũ Đức Long',f:['Con ông Vũ Văn Đức','& bà Nguyễn Thị Thơm'],kb:[0,3,1.12,0,-1,1.02],fx:2},
  {c:'IV',t:'Cô dâu',img:'15',tr:'arch',chap:'Cô dâu',h:'Lê Ánh Nguyệt',f:['Con ông Lê Xuân Mong','& bà Phạm Thị Huệ'],kb:[0,3,1.12,0,-1,1.02],fx:2,nocard:1},
  {c:'V',t:'Trước nhan Thiên Chúa',img:'17',tr:'glass',h:'Trước nhan Chúa',l:['“Sự gì Thiên Chúa đã phối hợp,','loài người không được phân ly.”'],f:['THÁNH LỄ HÔN PHỐI','19:00 · 25.11.2026 · GIÁO XỨ THỤY ỨNG'],kb:[0,-2,1.16,0,2,1.04],fx:4,d:8500},
- {c:'VI',t:'Ngày vui',img:'36',tr:'flare',h:'Ngày vui',l:['Niềm vui được nhân lên','khi có những người thương ở bên.'],f:['TIỆC CƯỚI · 10:00 · 29.11.2026','TƯ GIA NHÀ GÁI'],kb:[-2,0,1.06,2,0,1.15],fx:3},
+ {c:'VI',t:'Ngày vui',img:'36',tr:'flare',h:'Ngày vui',l:['Niềm vui được nhân lên','khi có những người thương ở bên.'],f:['TIỆC CƯỚI · 10:00 · 29.11.2026','TƯ GIA NHÀ TRAI'],kb:[-2,0,1.06,2,0,1.15],fx:3},
  {c:'VII',t:'Lời mời',img:'09',tr:'blur',chap:'Trân trọng kính mời',h:'Đức Long & Ánh Nguyệt',l:['Sự hiện diện của bạn là','món quà quý giá nhất.'],cd:1,end:1,kb:[0,2,1.15,0,-2,1.03],fx:3,d:9000}
 ];
 const story=document.getElementById('story'),stage=document.getElementById('stage'),bars=document.getElementById('bars2');
+setTimeout(()=>[0,1,2].forEach(k=>{const q=preload(k);q&&q.then(()=>q.ok=1)}),0);
 SC.forEach(()=>bars.insertAdjacentHTML('beforeend','<i><b></b></i>'));
-const pre={};function preload(i){if(i<0||i>=SC.length||pre[i])return;const im=new Image();im.src='img/'+SC[i].img+'.webp';pre[i]=im}
+const pre={};function preload(i){if(i<0||i>=SC.length)return null;if(!pre[i]){const im=new Image();im.decoding='async';im.src='img/'+SC[i].img+'.webp';pre[i]=(im.decode?im.decode():new Promise(r=>{im.onload=r})).catch(()=>{});pre[i].im=im}return pre[i]}
 let si=-1,sEl=null,sT0=0,sDur=0,sPaused=false,sPauseAt=0,sRaf,sDone=false;
 function words(txt,base){return txt.split(' ').map((w,i)=>`<span class="w" style="--wd:${(base+i*.12).toFixed(2)}s">${w}</span>`).join(' ')}
 function build(i){const c=SC[i],el=document.createElement('div');el.className='sc'+(c.k?' '+c.k:'');const k=c.kb||[0,0,1.05,0,0,1.15];
@@ -667,8 +679,10 @@ function build(i){const c=SC[i],el=document.createElement('div');el.className='s
  if(c.end)h+=`<div class="w" style="--wd:${t+.3}s"><button class="btn go2" id="sopen">Xem thiệp mời ›</button> <button class="btn go2" id="sgift">Mừng cưới 🎁</button></div>`;
  el.innerHTML=`<div class="bg" style="background-image:url(img/${c.img}.webp)"></div><div class="shade"></div><div class="cap">${h}</div>`+(first?`<div class="tc"><div><div class="num">${c.c}</div><div class="ln"></div><div class="tt">${c.t}</div></div></div>`:'');
  el._first=first;return el}
-function show(i){if(i<0)i=0;if(i>=SC.length){endStory();return}
- const c=SC[i],old=sEl;si=i;sEl=build(i);stage.appendChild(sEl);preload(i+1);preload(i+2);
+let sTok=0;function show(i){if(i<0)i=0;if(i>=SC.length){endStory();return}
+ const p=preload(i),tok=++sTok;if(p&&!p.ok){si=i;sT0=performance.now();sDur=1e9;Promise.race([p,new Promise(r=>setTimeout(r,700))]).then(()=>{p.ok=1;if(tok===sTok)show2(i)});return}show2(i)}
+function show2(i){
+ const c=SC[i],old=sEl;si=i;sEl=build(i);stage.appendChild(sEl);[1,2,3].forEach(k=>{const q=preload(i+k);q&&q.then(()=>q.ok=1)});
  void sEl.offsetWidth;sEl.classList.add('in-'+c.tr,'live');if(sEl._first)sEl.classList.add('card');
  setTimeout(()=>sEl&&sEl.classList.add('txt'),60);
  if(old){old.classList.add('leave');setTimeout(()=>old.remove(),1700)}
@@ -686,7 +700,7 @@ function sLoop(t){if(sDone)return;if(!sPaused&&si>=0){const k=(t-sT0)/sDur;const
 function pauseS(on){if(on===sPaused)return;sPaused=on;story.classList.toggle('paused',on);if(on){sPauseAt=performance.now()}else{sT0+=performance.now()-sPauseAt}
  stage.querySelectorAll('.bg,.w').forEach(e=>e.style.animationPlayState=on?'paused':'running')}
 function endStory(){if(sDone)return;sDone=true;story.classList.add('out');document.body.classList.remove('locked');document.body.classList.add('ready');window.scrollTo(0,0);setTimeout(()=>{story.classList.remove('on');stage.innerHTML=''},1500)}
-function startStory(){story.classList.add('on');preload(0);preload(1);show(0);requestAnimationFrame(sLoop);sfxLoop()}
+function startStory(){story.classList.add('on');show(0);requestAnimationFrame(sLoop);sfxLoop()}
 document.getElementById('skip').onclick=e=>{e.stopPropagation();endStory()};
 let pX=0,pY=0,pT=0,holdT,held=false;
 story.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;pX=e.clientX;pY=e.clientY;pT=Date.now();held=false;holdT=setTimeout(()=>{held=true;pauseS(true)},260)});
