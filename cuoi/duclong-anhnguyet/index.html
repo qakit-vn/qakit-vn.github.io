@@ -97,6 +97,29 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opac
 .gflash{position:fixed;inset:0;z-index:101;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 55%,#fffdf6 0%,#fff1cf 40%,rgba(255,226,160,.9) 75%,rgba(240,200,120,.85))}
 .gflash.on{animation:gfl 1.1s ease forwards}
 @keyframes gfl{0%{opacity:0}40%{opacity:1}100%{opacity:0}}
+
+/* photo portal gate */
+#gate{background:#0b0805 url(img/door-b.webp) center/cover}
+.cam{transform-origin:50% 66.5%}
+.dscene{position:absolute;top:0;left:50%;height:100%;aspect-ratio:687/1024;transform:translateX(-50%);min-width:100%;}
+@media (min-aspect-ratio:687/1024){.dscene{min-width:0}}
+.dimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 66%}
+.ddoor{position:absolute;left:26.2%;width:48.33%;top:46.68%;height:38.77%;perspective:1400px;perspective-origin:50% 50%}
+.dinside{position:absolute;inset:0;overflow:hidden;background:#3a2612}
+.dinside img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform 2.6s cubic-bezier(.5,0,.3,1)}
+.dglow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 55%,rgba(255,236,190,.95),rgba(255,200,120,.55) 45%,rgba(120,70,20,.2) 100%);opacity:.9;transition:opacity 2s}
+.dleaf{position:absolute;top:0;bottom:0;width:50%;background-image:url(img/door.webp);background-size:413.8% 257.9%;background-repeat:no-repeat;will-change:transform;backface-visibility:hidden;transition:transform 1.9s cubic-bezier(.55,.02,.2,1);box-shadow:inset 0 0 18px rgba(0,0,0,.35)}
+.dleaf.l{left:0;background-position:34.55% 76.24%;transform-origin:0 50%}
+.dleaf.r{right:0;background-position:66.41% 76.24%;transform-origin:100% 50%;transition-delay:.08s}
+#gate.open .dleaf.l{transform:rotateY(-100deg)}
+#gate.open .dleaf.r{transform:rotateY(100deg)}
+.dseam{position:absolute;left:calc(50% - 1px);width:2px;top:4%;bottom:2%;background:linear-gradient(transparent,rgba(255,226,150,.9) 30%,rgba(255,240,200,.95) 70%,transparent);box-shadow:0 0 12px 3px rgba(255,205,120,.5);opacity:.7;animation:seam 3.2s ease-in-out infinite}
+#gate.open .dseam{animation:none;opacity:0;transition:opacity .3s}
+#gate.open .dglow{opacity:1}
+#gate.dolly .cam{transition:transform 1.9s cubic-bezier(.62,0,.32,1),opacity 1.9s;transform:scale(4.2)}
+#gate.dolly .dinside img{transform:scale(1)}
+.seal{top:66.5%}
+@media (prefers-reduced-motion:reduce){.dleaf{transition-duration:.01s!important}}
 @media (prefers-reduced-motion:reduce){.leaf,.cam,.archL{transition-duration:.01s!important}}
 .btn{font:600 .78rem "Cormorant Garamond";letter-spacing:.3em;text-transform:uppercase;padding:.95em 2.1em;border:1px solid var(--gold2);color:#f6e7c4;background:rgba(0,0,0,.25);border-radius:40px;cursor:pointer;backdrop-filter:blur(4px);position:relative;overflow:hidden}
 .btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,240,200,.45) 50%,transparent 70%);transform:translateX(-100%);animation:shine 2.6s ease-in-out infinite}
@@ -388,13 +411,9 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 </svg>
 
 <div id="gate" aria-label="Mở thiệp">
- <div class="cam"><div class="portal" id="portal">
-  <div class="nave"><img src="img/nave.webp" alt="" fetchpriority="high"><div class="rays"></div><div class="warm"></div></div>
-  <div class="seam"></div>
-  <div class="doors"><div class="leaf l" id="leafL"></div><div class="leaf r" id="leafR"></div></div>
-  <div class="archL" id="archL"></div>
-  <div class="candle cl"><div class="fl"></div><div class="wax"></div><div class="stand"></div></div>
-  <div class="candle cr"><div class="fl" style="animation-delay:-.09s"></div><div class="wax"></div><div class="stand"></div></div>
+ <div class="cam"><div class="dscene">
+  <img class="dimg" src="img/door.webp" alt="" fetchpriority="high" decoding="async">
+  <div class="ddoor"><div class="dinside"><img src="img/nave.webp" alt="" decoding="async"><div class="dglow"></div></div><div class="dleaf l"></div><div class="dleaf r"></div><div class="dseam"></div></div>
  </div></div>
  <canvas id="motes"></canvas>
  <div class="seal pulse" id="seal" role="button" aria-label="Mở thiệp"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="33" fill="none" stroke="#f3dfae" stroke-opacity=".55" stroke-width="1"/><circle cx="40" cy="40" r="29" fill="none" stroke="#f3dfae" stroke-opacity=".3" stroke-width=".6" stroke-dasharray="1.5 2.5"/><path d="M40 13v11M35.5 17.5h9" stroke="#f3dfae" stroke-width="1.8" stroke-linecap="round"/><text x="40" y="53" text-anchor="middle" font-family="Ephesis" font-size="25" fill="#f3dfae">L&amp;N</text></svg></div>
@@ -800,9 +819,8 @@ s+=`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="
 pts.forEach((p,i)=>{if(i%1)return;const a=(i*47)%360;s+=`<ellipse cx="${p[0]+Math.cos(a)*6}" cy="${p[1]+Math.sin(a)*6}" rx="7" ry="3.6" transform="rotate(${a} ${p[0]+Math.cos(a)*6} ${p[1]+Math.sin(a)*6})" fill="${i%3?'#4f7a3a':'#6f9a4f'}" opacity=".95"/>`;
 if(i%7==3){let f='';for(let k=0;k<5;k++){const b=k*72+a;f+=`<ellipse cx="${p[0]+Math.cos(b*Math.PI/180)*6}" cy="${p[1]+Math.sin(b*Math.PI/180)*6}" rx="6.5" ry="3" transform="rotate(${b} ${p[0]+Math.cos(b*Math.PI/180)*6} ${p[1]+Math.sin(b*Math.PI/180)*6})" fill="#fffdf6" stroke="#e7d9bd" stroke-width=".5"/>`}s+=f+`<circle cx="${p[0]}" cy="${p[1]}" r="2.2" fill="#e8b23a"/>`}});
 return s+'</svg>'}
-document.getElementById('leafL').innerHTML=leaf(0);document.getElementById('leafR').innerHTML=leaf(1);document.getElementById('archL').innerHTML=arch();
+
 // nave clip to pointed arch
-const nv=document.querySelector('.nave');function clipN(){const w=nv.clientWidth,h=nv.clientHeight;const sx=w/310,sy=h/570;nv.style.clipPath=`path('M0 ${h}V${180*sy}Q0 ${40*sy} ${w/2} 0Q${w} ${40*sy} ${w} ${180*sy}V${h}Z')`}clipN();addEventListener('resize',clipN);
 // motes
 const cv=document.getElementById('motes'),cx=cv.getContext('2d');let M=[],run=true,boost=0;function rs(){cv.width=innerWidth*Math.min(2,devicePixelRatio||1);cv.height=innerHeight*Math.min(2,devicePixelRatio||1)}rs();addEventListener('resize',rs);
 for(let i=0;i<46;i++)M.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.4,v:Math.random()*.0004+.0001,p:Math.random()*6});
