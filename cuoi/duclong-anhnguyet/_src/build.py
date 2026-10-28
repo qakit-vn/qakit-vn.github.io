@@ -9,11 +9,11 @@ def cal(title,start,end,loc,url): return ('https://calendar.google.com/calendar/
 SIDES={
  'trai':dict(TT='10:00',TD='29',TWD='Chủ Nhật',TL='21',TP='Tư gia nhà trai',TPU='TƯ GIA NHÀ TRAI',TPN='nhà trai',
    TA='Thôn Ngưu Trì Thượng, xã Nam Trực, tỉnh Ninh Bình',MAPQ='Thôn Ngưu Trì Thượng, xã Nam Trực, Ninh Bình',
-   CAL=('20261129T030000Z','20261129T060000Z'),CH1B='07',song='bg',CREDIT='Nhạc: Sớm<br>'),
+   CAL=('20261129T030000Z','20261129T060000Z'),CH1B='07',song='bg',CREDIT='Nhạc: Sớm'),
  'gai':dict(TT='16:00',TD='28',TWD='Thứ Bảy',TL='20',TP='Tư gia nhà gái',TPU='TƯ GIA NHÀ GÁI',TPN='nhà gái',
    TA='Số 9 ngõ 32 đường 1 Đồng Vân, Đồng Tháp, Đan Phượng',MAPQ='Số 9 ngõ 32 đường 1 Đồng Vân, Đồng Tháp, Đan Phượng, Hà Nội',
    CAL=('20261128T090000Z','20261128T120000Z'),CH1B='02',song='nhagai',
-   CREDIT='Nhạc: Can\'t Help Falling In Love – Brooklyn Duo<br>'),
+   CREDIT='Nhạc: Can\'t Help Falling In Love – Brooklyn Duo'),
 }
 T=open(os.path.join(D,'_src','template.html'),encoding='utf-8').read()
 def render(side,url,prefix):

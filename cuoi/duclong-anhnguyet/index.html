@@ -554,7 +554,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
  <div class="names script rv fit"><span class="gold">Đức Long &amp; Ánh Nguyệt</span></div>
  <div class="verse rv"><p>Tình yêu không bao giờ mất được.</p><cite class="caps">1 Cô-rin-tô 13, 8</cite></div>
  <p class="rv" style="color:var(--muted);font-style:italic">Rất hân hạnh được đón tiếp quý khách.</p>
-<p style="margin-top:40px;font-size:.72rem;color:#a89a82;line-height:1.6">Nhạc: Sớm<br>Nhạc dự phòng: "Canon in D Major" – Kevin MacLeod (incompetech.com), giấy phép <a href="https://creativecommons.org/licenses/by/3.0/" style="color:inherit">CC BY 3.0</a>, qua <a href="https://commons.wikimedia.org/wiki/File:Canon_in_D_Major_(ISRC_USUAN1100301).mp3" style="color:inherit">Wikimedia Commons</a>, đã cắt fade</p>
+<p style="margin-top:40px;font-size:.72rem;color:#a89a82;line-height:1.6">Nhạc: Sớm</p>
 </footer>
 
 <div id="lb"><button class="x" aria-label="Đóng">×</button><button class="p" aria-label="Trước">‹</button><img alt=""><button class="n" aria-label="Sau">›</button><div class="c"></div></div>
@@ -601,7 +601,7 @@ function loop(t){if(run){cx.clearRect(0,0,W,H);for(const q of P){q.y+=q.vy;q.ph+
 requestAnimationFrame(loop);
 
 // music: plain <audio>, started synchronously in the first tap
-const TR=['audio/'+SIDE.song+'.mp3','audio/canon.mp3'],TRM=['audio/'+SIDE.song+'.m4a','audio/canon.m4a'];let AC=null,GN=null,SRC=null,BUF=null,mOn=false,ti=0,ldP=null,offT;
+const TR=['audio/'+SIDE.song+'.mp3'],TRM=['audio/'+SIDE.song+'.m4a'];let AC=null,GN=null,SRC=null,BUF=null,mOn=false,ti=0,ldP=null,offT;
 const PRE=TR.map((u,i)=>true?null:fetch(u).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null));
 function getAB(i){if(!PRE[i])PRE[i]=fetch(TR[i]).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null);return PRE[i]}
 function dec(ab){return new Promise((res,rej)=>{try{const p=AC.decodeAudioData(ab,res,rej);if(p&&p.then)p.then(res,rej)}catch(e){rej(e)}})}
@@ -613,7 +613,7 @@ function startSrc(){if(SRC||!BUF)return;SRC=AC.createBufferSource();SRC.buffer=B
 function ramp(to,sec){const t=AC.currentTime;GN.gain.cancelScheduledValues(t);GN.gain.setValueAtTime(GN.gain.value,t);GN.gain.linearRampToValueAtTime(to,t+sec)}
 function setMUI(){document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC'}
 let AU=null,mUser=false;
-function auEl(){if(!AU){AU=new Audio();AU.loop=true;AU.preload='auto';AU.setAttribute('playsinline','');const L=[TR[0],TRM[0],TR[1],TRM[1]];if(AU.canPlayType('audio/mp4; codecs="mp4a.40.2"'))L.splice(0,2,TRM[0],TR[0]);let li=0;AU.src=L[0];AU.load();AU.onerror=()=>{if(++li<L.length){AU.src=L[li];AU.load();if(mOn)AU.play().catch(mFail)}else mFail()};AU.onplaying=()=>{mHint(false)}}return AU}
+function auEl(){if(!AU){AU=new Audio();AU.loop=true;AU.preload='auto';AU.setAttribute('playsinline','');const L=AU.canPlayType('audio/mp4; codecs="mp4a.40.2"')?[TRM[0],TR[0]]:[TR[0],TRM[0]];let li=0;AU.src=L[0];AU.load();AU.onerror=()=>{if(++li<L.length){AU.src=L[li];AU.load();if(mOn)AU.play().catch(mFail)}else mFail()};AU.onplaying=()=>{mHint(false)}}return AU}
 function mFail(){mOn=false;setMUI();mHint(true)}
 setTimeout(auEl,0);
 function mHint(on){let h=document.getElementById('mhint');if(!h){h=document.createElement('button');h.id='mhint';h.type='button';h.textContent='♪ Chạm để bật nhạc';h.style.cssText='position:fixed;right:72px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:61;font:600 .8rem "Cormorant Garamond";letter-spacing:.12em;padding:.7em 1.2em;border-radius:30px;border:1px solid #d9b86a;background:rgba(40,28,16,.85);color:#f6e7c4;display:none';h.onclick=e=>{e.stopPropagation();toggleMusic(true)};document.body.appendChild(h)}h.style.display=on?'block':'none'}
