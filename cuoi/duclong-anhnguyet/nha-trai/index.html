@@ -559,8 +559,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 <div id="lb"><button class="x" aria-label="Đóng">×</button><button class="p" aria-label="Trước">‹</button><img alt=""><button class="n" aria-label="Sau">›</button><div class="c"></div></div>
 
 <script>
-const SIDE={"side": "trai", "yt": null, "ytTitle": null};
-const INAPP=/Zalo|FBAN|FBAV|FB_IAB|FBIOS|Messenger|Instagram|Line\//i.test(navigator.userAgent);if(SIDE.yt&&INAPP){SIDE.yt=null;SIDE.alt=1}
+const SIDE={"side": "trai", "song": "bg"};
 // rose window
 function rose(svg,full){const NS='http://www.w3.org/2000/svg';const cols=['#7d93a8','#b4485a','#d9b86a','#8a9a83','#5f7ea0','#c98b5a'];let h='<defs><radialGradient id="rg"><stop offset="0" stop-color="#fff8e6"/><stop offset="1" stop-color="#d9b86a"/></radialGradient></defs>';
  const ring=(n,r1,r2,w,o)=>{for(let i=0;i<n;i++){const a=(i/n)*Math.PI*2+o;const c=cols[(i+n)%cols.length];const x=Math.cos(a),y=Math.sin(a);const cx=x*(r1+r2)/2,cy=y*(r1+r2)/2;h+=`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${((r2-r1)/2).toFixed(1)}" ry="${w}" transform="rotate(${(a*180/Math.PI).toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)})" fill="${c}" fill-opacity="${full?.55:.9}" stroke="#b48a3c" stroke-width="1.2"/>`}};
@@ -600,8 +599,8 @@ let run=true;document.addEventListener('visibilitychange',()=>run=!document.hidd
 function loop(t){if(run){cx.clearRect(0,0,W,H);for(const q of P){q.y+=q.vy;q.ph+=.02;q.x+=q.vx+Math.sin(q.ph)*.5;q.a+=q.va;if(q.y>H+20)Object.assign(q,mk(1));cx.save();cx.translate(q.x,q.y);cx.rotate(q.a);if(q.heart){cx.rotate(-q.a);const r=q.r*.7;cx.beginPath();cx.moveTo(0,r*.6);cx.bezierCurveTo(-r*1.6,-r*.4,-r*.6,-r*1.6,0,-r*.5);cx.bezierCurveTo(r*.6,-r*1.6,r*1.6,-r*.4,0,r*.6);cx.fillStyle='rgba(206,90,105,.85)';cx.fill()}else if(q.p){cx.scale(1,Math.abs(Math.cos(q.ph*.7))*.6+.4);cx.beginPath();cx.moveTo(0,-q.r);cx.bezierCurveTo(q.r,-q.r*.6,q.r*.7,q.r*.7,0,q.r);cx.bezierCurveTo(-q.r*.7,q.r*.7,-q.r,-q.r*.6,0,-q.r);cx.fillStyle=`rgba(${q.c},.9)`;cx.shadowColor='rgba(150,110,50,.25)';cx.shadowBlur=4;cx.fill()}else{cx.beginPath();cx.arc(0,0,q.r,0,7);cx.fillStyle=`rgba(${q.c},${.5+.5*Math.sin(q.ph*3)})`;cx.shadowColor='rgba(255,210,120,.9)';cx.shadowBlur=8;cx.fill()}cx.restore()}}requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 
-// music: Web Audio only (no <audio>/<video>/iframe) – "Sớm"; fallback Canon in D (Kevin MacLeod, CC BY 3.0)
-const TR=['../audio/bg.mp3','../audio/canon.mp3'],TRM=['../audio/bg.m4a','../audio/canon.m4a'];let AC=null,GN=null,SRC=null,BUF=null,mOn=false,ti=0,ldP=null,offT;
+// music: plain <audio>, started synchronously in the first tap
+const TR=['../audio/'+SIDE.song+'.mp3','../audio/canon.mp3'],TRM=['../audio/'+SIDE.song+'.m4a','../audio/canon.m4a'];let AC=null,GN=null,SRC=null,BUF=null,mOn=false,ti=0,ldP=null,offT;
 const PRE=TR.map((u,i)=>true?null:fetch(u).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null));
 function getAB(i){if(!PRE[i])PRE[i]=fetch(TR[i]).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null);return PRE[i]}
 function dec(ab){return new Promise((res,rej)=>{try{const p=AC.decodeAudioData(ab,res,rej);if(p&&p.then)p.then(res,rej)}catch(e){rej(e)}})}
@@ -612,31 +611,18 @@ function unlock(){if(!AC){const C=window.AudioContext||window.webkitAudioContext
 function startSrc(){if(SRC||!BUF)return;SRC=AC.createBufferSource();SRC.buffer=BUF;SRC.loop=true;SRC.connect(GN);SRC.start(0)}
 function ramp(to,sec){const t=AC.currentTime;GN.gain.cancelScheduledValues(t);GN.gain.setValueAtTime(GN.gain.value,t);GN.gain.linearRampToValueAtTime(to,t+sec)}
 function setMUI(){document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC'}
-const ZALO=/zalo/i.test(navigator.userAgent);let AU=null,mUser=false;
-function auEl(){if(!AU){AU=new Audio();AU.loop=true;AU.preload='auto';AU.setAttribute('playsinline','');const L=[TR[0],TRM[0],TR[1],TRM[1]];if(AU.canPlayType('../audio/mp4; codecs="mp4a.40.2"'))L.splice(0,2,TRM[0],TR[0]);let li=0;AU.src=L[0];AU.load();AU.onerror=()=>{if(++li<L.length){AU.src=L[li];AU.load();if(mOn)AU.play().catch(mFail)}else mFail()};AU.onplaying=()=>{mHint(false);if(SIDE.alt)zHint('Đang phát nhạc thay thế. <b>⋯</b> → <b>Mở bằng trình duyệt</b> để nghe đúng bài')}}return AU}
-function mFail(){mOn=false;setMUI();mHint(true);if(INAPP)zHint()}
-function zHint(msg){if(document.getElementById('zhint'))return;const z=document.createElement('div');z.id='zhint';z.innerHTML=msg||'Không nghe được nhạc? Bấm <b>⋯</b> góc trên → <b>Mở bằng trình duyệt</b>';z.style.cssText='position:fixed;left:12px;right:12px;top:calc(10px + env(safe-area-inset-top));z-index:62;font:500 .85rem "Cormorant Garamond";text-align:center;padding:.6em 1em;border-radius:14px;background:rgba(40,28,16,.9);color:#f6e7c4;border:1px solid #d9b86a';z.onclick=()=>z.remove();document.body.appendChild(z);setTimeout(()=>z.remove(),9000)}
-if(!SIDE.yt)setTimeout(auEl,0);
+let AU=null,mUser=false;
+function auEl(){if(!AU){AU=new Audio();AU.loop=true;AU.preload='auto';AU.setAttribute('playsinline','');const L=[TR[0],TRM[0],TR[1],TRM[1]];if(AU.canPlayType('../audio/mp4; codecs="mp4a.40.2"'))L.splice(0,2,TRM[0],TR[0]);let li=0;AU.src=L[0];AU.load();AU.onerror=()=>{if(++li<L.length){AU.src=L[li];AU.load();if(mOn)AU.play().catch(mFail)}else mFail()};AU.onplaying=()=>{mHint(false)}}return AU}
+function mFail(){mOn=false;setMUI();mHint(true)}
+setTimeout(auEl,0);
 function mHint(on){let h=document.getElementById('mhint');if(!h){h=document.createElement('button');h.id='mhint';h.type='button';h.textContent='♪ Chạm để bật nhạc';h.style.cssText='position:fixed;right:72px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:61;font:600 .8rem "Cormorant Garamond";letter-spacing:.12em;padding:.7em 1.2em;border-radius:30px;border:1px solid #d9b86a;background:rgba(40,28,16,.85);color:#f6e7c4;display:none';h.onclick=e=>{e.stopPropagation();toggleMusic(true)};document.body.appendChild(h)}h.style.display=on?'block':'none'}
-function toggleMusic(force){if(SIDE.yt)return ytToggle(force);
+function toggleMusic(force){
  {mOn=force!==undefined?force:!mOn;setMUI();const a=auEl();if(mOn){a.volume=.85;const p=a.play();if(p&&p.catch)p.catch(mFail)}else a.pause();return}mOn=force!==undefined?force:!mOn;setMUI();clearTimeout(offT);
  if(mOn){if(!unlock()){mOn=false;setMUI();return}AC.resume().catch(()=>{});(ldP=ldP||load()).then(b=>{if(!b){mOn=false;setMUI();return}if(!mOn)return;startSrc();ramp(.85,2.5)})}
  else if(AC){ramp(0,.8);offT=setTimeout(()=>{if(!mOn)AC.suspend().catch(()=>{})},900)}}
 document.addEventListener('visibilitychange',()=>{if(AU){if(document.hidden)AU.pause();else if(mOn)AU.play().catch(()=>{})}if(!AC)return;if(document.hidden)AC.suspend().catch(()=>{});else if(mOn)AC.resume().catch(()=>{})});
 document.getElementById('music').onclick=e=>{e.stopPropagation();mUser=true;toggleMusic()};
 ['touchend','click'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.closest&&e.target.closest('#music,#mhint'))return;if(!mOn&&!mUser&&!window._mFirst){window._mFirst=1;try{toggleMusic(true)}catch(e){}}},{capture:true,passive:true}));
-// YouTube IFrame Player (bride side): hidden embed, starts on the first tap, button = mute toggle
-let YP=null,ypReady=false,ypWant=false,ypStarted=false;
-if(SIDE.yt){const d=document.createElement('div');d.id='ytp';d.style.cssText='position:fixed;left:-10px;top:-10px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none';d.setAttribute('aria-hidden','true');const di=document.createElement('div');di.id='ytp';d.id='ytwrap';d.appendChild(di);document.body.appendChild(d);
- window.onYouTubeIframeAPIReady=()=>{YP=new YT.Player('ytp',{host:'https://www.youtube-nocookie.com',width:1,height:1,videoId:SIDE.yt,playerVars:{autoplay:0,mute:1,controls:0,fs:0,disablekb:1,modestbranding:1,rel:0,iv_load_policy:3,loop:1,playlist:SIDE.yt,playsinline:1,origin:location.origin},events:{onReady:()=>{ypReady=true;YP.setVolume(85);try{const f=YP.getIframe();f.removeAttribute('allowfullscreen');f.setAttribute('allow','autoplay; encrypted-media');f.setAttribute('tabindex','-1');f.style.cssText='width:1px;height:1px;border:0;pointer-events:none'}catch(e){}},onStateChange:e=>{if(e.data===1&&mOn&&!YP.isMuted())mHint(false)},onError:()=>{if(mOn)mFail()}}})};
- const t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';document.head.appendChild(t);
- document.getElementById('music').setAttribute('aria-label','Bật/tắt nhạc: '+SIDE.ytTitle);document.getElementById('music').title=SIDE.ytTitle}
-document.addEventListener('webkitfullscreenchange',fsGuard);document.addEventListener('fullscreenchange',fsGuard);
-function fsGuard(){const fe=document.fullscreenElement||document.webkitFullscreenElement;if(fe&&fe.tagName==='IFRAME'){try{(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(e){}try{YP.stopVideo()}catch(e){}mFail()}}
-function ytApply(){if(!YP||!ypReady)return;if(mOn){YP.unMute();if(!ypStarted||YP.getPlayerState()!==1){YP.playVideo();ypStarted=true}}else{YP.mute()}}
-function ytToggle(force){mOn=force!==undefined?force:!mOn;ypWant=true;setMUI();if(!YP||!ypReady){if(mOn)mHint(true);return}ytApply();
- if(mOn)setTimeout(()=>{try{if(ZALO&&!YP)return mFail();if(mOn&&(YP.getPlayerState()!==1||YP.isMuted()))mFail();else mHint(false)}catch(e){mFail()}},2500)}
-document.addEventListener('visibilitychange',()=>{if(!SIDE.yt||!YP||!ypReady)return;if(document.hidden)YP.pauseVideo();else if(mOn)YP.playVideo()});
 
 // auto-scroll
 const asBtn=document.getElementById('autos');let asOn=false,asUser=true,asIdle,asLast=0,asHold=0,asPos=0;

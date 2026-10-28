@@ -9,12 +9,11 @@ def cal(title,start,end,loc,url): return ('https://calendar.google.com/calendar/
 SIDES={
  'trai':dict(TT='10:00',TD='29',TWD='Chủ Nhật',TL='21',TP='Tư gia nhà trai',TPU='TƯ GIA NHÀ TRAI',TPN='nhà trai',
    TA='Thôn Ngưu Trì Thượng, xã Nam Trực, tỉnh Ninh Bình',MAPQ='Thôn Ngưu Trì Thượng, xã Nam Trực, Ninh Bình',
-   CAL=('20261129T030000Z','20261129T060000Z'),CH1B='07',yt=None,ytTitle=None,CREDIT='Nhạc: Sớm<br>'),
+   CAL=('20261129T030000Z','20261129T060000Z'),CH1B='07',song='bg',CREDIT='Nhạc: Sớm<br>'),
  'gai':dict(TT='16:00',TD='28',TWD='Thứ Bảy',TL='20',TP='Tư gia nhà gái',TPU='TƯ GIA NHÀ GÁI',TPN='nhà gái',
    TA='Số 9 ngõ 32 đường 1 Đồng Vân, Đồng Tháp, Đan Phượng',MAPQ='Số 9 ngõ 32 đường 1 Đồng Vân, Đồng Tháp, Đan Phượng, Hà Nội',
-   CAL=('20261128T090000Z','20261128T120000Z'),CH1B='02',yt='7KZ460xFFPs',
-   ytTitle="Can't Help Falling In Love - Cello & Piano Cover (Brooklyn Duo)",  # from YouTube oEmbed
-   CREDIT='Nhạc: "Can\'t Help Falling In Love – Cello &amp; Piano Cover" – Brooklyn Duo (YouTube)<br>'),
+   CAL=('20261128T090000Z','20261128T120000Z'),CH1B='02',song='nhagai',
+   CREDIT='Nhạc: Can\'t Help Falling In Love – Brooklyn Duo<br>'),
 }
 T=open(os.path.join(D,'_src','template.html'),encoding='utf-8').read()
 def render(side,url,prefix):
@@ -22,7 +21,7 @@ def render(side,url,prefix):
     rep={k:c[k] for k in ('TT','TD','TWD','TL','TP','TPU','TPN','TA','CH1B','CREDIT')}
     rep['URL']=url; rep['TMAP']=maps(c['MAPQ']).replace('&','&amp;')
     rep['TCAL']=cal('Tiệc cưới Đức Long & Ánh Nguyệt',*c['CAL'],c['TA'],url).replace('&','&amp;')
-    rep['SIDEJSON']=json.dumps({'side':side,'yt':c['yt'],'ytTitle':c['ytTitle']},ensure_ascii=False)
+    rep['SIDEJSON']=json.dumps({'side':side,'song':c['song']},ensure_ascii=False)
     for k,v in rep.items(): s=s.replace('{{'+k+'}}',v)
     assert '{{' not in s
     if prefix:  # subfolder: point assets one level up
