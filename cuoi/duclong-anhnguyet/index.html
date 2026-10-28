@@ -600,7 +600,7 @@ requestAnimationFrame(loop);
 
 // music: Web Audio only (no <audio>/<video>/iframe) – "Sớm"; fallback Canon in D (Kevin MacLeod, CC BY 3.0)
 const TR=['audio/bg.mp3','audio/canon.mp3'];let AC=null,GN=null,SRC=null,BUF=null,mOn=false,ti=0,ldP=null,offT;
-const PRE=TR.map((u,i)=>(i||SIDE.yt)?null:fetch(u).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null));
+const PRE=TR.map((u,i)=>true?null:fetch(u).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null));
 function getAB(i){if(!PRE[i])PRE[i]=fetch(TR[i]).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).catch(()=>null);return PRE[i]}
 function dec(ab){return new Promise((res,rej)=>{try{const p=AC.decodeAudioData(ab,res,rej);if(p&&p.then)p.then(res,rej)}catch(e){rej(e)}})}
 async function load(){for(;ti<TR.length;ti++){const ab=await getAB(ti);if(!ab)continue;try{BUF=await dec(ab.slice(0));return BUF}catch(e){}}return null}
@@ -610,19 +610,26 @@ function unlock(){if(!AC){const C=window.AudioContext||window.webkitAudioContext
 function startSrc(){if(SRC||!BUF)return;SRC=AC.createBufferSource();SRC.buffer=BUF;SRC.loop=true;SRC.connect(GN);SRC.start(0)}
 function ramp(to,sec){const t=AC.currentTime;GN.gain.cancelScheduledValues(t);GN.gain.setValueAtTime(GN.gain.value,t);GN.gain.linearRampToValueAtTime(to,t+sec)}
 function setMUI(){document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC'}
-function toggleMusic(force){if(SIDE.yt)return ytToggle(force);mOn=force!==undefined?force:!mOn;setMUI();clearTimeout(offT);
+const ZALO=/zalo/i.test(navigator.userAgent);let AU=null,mUser=false;
+function auEl(){if(!AU){AU=new Audio();AU.loop=true;AU.preload='auto';AU.setAttribute('playsinline','');AU.src=TR[0];AU.onerror=()=>{if(AU.src.indexOf(TR[1])<0){AU.src=TR[1];if(mOn)AU.play().catch(mFail)}};AU.onplaying=()=>{mHint(false)}}return AU}
+function mFail(){mOn=false;setMUI();mHint(true)}
+function mHint(on){let h=document.getElementById('mhint');if(!h){h=document.createElement('button');h.id='mhint';h.type='button';h.textContent='♪ Bật nhạc';h.style.cssText='position:fixed;right:72px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:61;font:600 .8rem "Cormorant Garamond";letter-spacing:.12em;padding:.7em 1.2em;border-radius:30px;border:1px solid #d9b86a;background:rgba(40,28,16,.85);color:#f6e7c4;display:none';h.onclick=e=>{e.stopPropagation();toggleMusic(true)};document.body.appendChild(h)}h.style.display=on?'block':'none'}
+function toggleMusic(force){if(SIDE.yt)return ytToggle(force);
+ {mOn=force!==undefined?force:!mOn;setMUI();const a=auEl();if(mOn){a.volume=.85;const p=a.play();if(p&&p.catch)p.catch(mFail)}else a.pause();return}mOn=force!==undefined?force:!mOn;setMUI();clearTimeout(offT);
  if(mOn){if(!unlock()){mOn=false;setMUI();return}AC.resume().catch(()=>{});(ldP=ldP||load()).then(b=>{if(!b){mOn=false;setMUI();return}if(!mOn)return;startSrc();ramp(.85,2.5)})}
  else if(AC){ramp(0,.8);offT=setTimeout(()=>{if(!mOn)AC.suspend().catch(()=>{})},900)}}
-document.addEventListener('visibilitychange',()=>{if(!AC)return;if(document.hidden)AC.suspend().catch(()=>{});else if(mOn)AC.resume().catch(()=>{})});
-document.getElementById('music').onclick=()=>toggleMusic();
+document.addEventListener('visibilitychange',()=>{if(AU){if(document.hidden)AU.pause();else if(mOn)AU.play().catch(()=>{})}if(!AC)return;if(document.hidden)AC.suspend().catch(()=>{});else if(mOn)AC.resume().catch(()=>{})});
+document.getElementById('music').onclick=e=>{e.stopPropagation();mUser=true;toggleMusic()};
+['touchend','click'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.closest&&e.target.closest('#music,#mhint'))return;if(!mOn&&!mUser&&!window._mFirst){window._mFirst=1;try{toggleMusic(true)}catch(e){}}},{capture:true,passive:true}));
 // YouTube IFrame Player (bride side): hidden embed, starts on the first tap, button = mute toggle
 let YP=null,ypReady=false,ypWant=false,ypStarted=false;
 if(SIDE.yt){const d=document.createElement('div');d.id='ytp';d.style.cssText='position:fixed;left:-9999px;top:0;width:200px;height:200px;opacity:0;pointer-events:none';document.body.appendChild(d);
- window.onYouTubeIframeAPIReady=()=>{YP=new YT.Player('ytp',{videoId:SIDE.yt,playerVars:{autoplay:0,controls:0,loop:1,playlist:SIDE.yt,playsinline:1,rel:0},events:{onReady:()=>{ypReady=true;YP.setVolume(85);if(ypWant)ytApply()}}})};
+ window.onYouTubeIframeAPIReady=()=>{YP=new YT.Player('ytp',{videoId:SIDE.yt,playerVars:{autoplay:0,mute:1,controls:0,loop:1,playlist:SIDE.yt,playsinline:1,rel:0},events:{onReady:()=>{ypReady=true;YP.setVolume(85)},onStateChange:e=>{if(e.data===1&&mOn&&!YP.isMuted())mHint(false)},onError:()=>{if(mOn)mFail()}}})};
  const t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';document.head.appendChild(t);
  document.getElementById('music').setAttribute('aria-label','Bật/tắt nhạc: '+SIDE.ytTitle);document.getElementById('music').title=SIDE.ytTitle}
 function ytApply(){if(!YP||!ypReady)return;if(mOn){YP.unMute();if(!ypStarted||YP.getPlayerState()!==1){YP.playVideo();ypStarted=true}}else{YP.mute()}}
-function ytToggle(force){mOn=force!==undefined?force:!mOn;ypWant=true;setMUI();ytApply()}
+function ytToggle(force){mOn=force!==undefined?force:!mOn;ypWant=true;setMUI();if(!YP||!ypReady){if(mOn)mHint(true);return}ytApply();
+ if(mOn)setTimeout(()=>{try{if(ZALO&&!YP)return mFail();if(mOn&&(YP.getPlayerState()!==1||YP.isMuted()))mFail();else mHint(false)}catch(e){mFail()}},2500)}
 document.addEventListener('visibilitychange',()=>{if(!SIDE.yt||!YP||!ypReady)return;if(document.hidden)YP.pauseVideo();else if(mOn)YP.playVideo()});
 
 // auto-scroll
@@ -813,7 +820,7 @@ for(let i=0;i<28;i++){const p=document.createElement('div');p.className='gpet';c
 // cinematic open
 const g=document.getElementById('gate'),fl=document.getElementById('gflash');let T=[],done=false;
 function finish(){if(done)return;done=true;T.forEach(clearTimeout);fl.classList.remove('on');void fl.offsetWidth;fl.classList.add('on');setTimeout(()=>{g.classList.add('gone');startStory();setTimeout(()=>{run=false},800)},380)}
-window.openGate=function(){if(g.classList.contains('open')){finish();return}g.classList.add('open');try{toggleMusic(true)}catch(e){}asUser=false;boost=1;
+window.openGate=function(){if(g.classList.contains('open')){finish();return}g.classList.add('open');try{window._mFirst=1;if(!mOn)toggleMusic(true)}catch(e){}asUser=false;boost=1;
 T.push(setTimeout(()=>g.classList.add('dolly'),1150));T.push(setTimeout(finish,3300))};
 g.addEventListener('click',e=>{if(g.classList.contains('open'))finish()});
 })();
