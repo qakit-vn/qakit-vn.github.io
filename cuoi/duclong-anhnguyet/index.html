@@ -308,7 +308,10 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 .sc{position:absolute;inset:0;overflow:hidden;opacity:0;contain:strict;backface-visibility:hidden}
 .sc.live{will-change:opacity,transform}
 .sc .bg{position:absolute;inset:-4%;background-size:cover;background-position:center;background-color:#1e160e;will-change:transform;backface-visibility:hidden;transform:translate3d(0,0,0)}
-.sc.live .bg{animation:kbs var(--d) linear forwards}
+.sc .bg{inset:-6%;transform:scale(1.15)}
+.sc .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;will-change:transform;backface-visibility:hidden}
+.sc.live .fg{animation:kbf var(--d) ease-out forwards}
+@keyframes kbf{from{transform:scale(1)}to{transform:scale(1.03)}}
 @keyframes kbs{from{transform:translate3d(var(--x0),var(--y0),0) scale(var(--s0))}to{transform:translate3d(var(--x1),var(--y1),0) scale(var(--s1))}}
 .sc .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,10,6,.55) 0%,rgba(14,10,6,0) 30%,rgba(14,10,6,.1) 50%,rgba(14,10,6,.82) 100%)}
 .sc.top .shade{background:linear-gradient(180deg,rgba(14,10,6,.8) 0%,rgba(14,10,6,.15) 45%,rgba(14,10,6,0) 70%,rgba(14,10,6,.5) 100%)}
@@ -677,7 +680,7 @@ function build(i){const c=SC[i],el=document.createElement('div');el.className='s
  (c.f||[]).forEach(x=>{h+=`<div class="f">${words(x,t)}</div>`;t+=.35});
  if(c.cd){h+=`<div class="cdm w" style="--wd:${t}s" id="scd"></div>`;t+=.4}
  if(c.end)h+=`<div class="w" style="--wd:${t+.3}s"><button class="btn go2" id="sopen">Xem thiệp mời ›</button> <button class="btn go2" id="sgift">Mừng cưới 🎁</button></div>`;
- el.innerHTML=`<div class="bg" style="background-image:url(img/${c.img}.webp)"></div><div class="shade"></div><div class="cap">${h}</div>`+(first?`<div class="tc"><div><div class="num">${c.c}</div><div class="ln"></div><div class="tt">${c.t}</div></div></div>`:'');
+ el.innerHTML=`<div class="bg" style="background-image:url(img/${c.img}b.webp)"></div><img class="fg" src="img/${c.img}.webp" alt="" decoding="async"><div class="shade"></div><div class="cap">${h}</div>`+(first?`<div class="tc"><div><div class="num">${c.c}</div><div class="ln"></div><div class="tt">${c.t}</div></div></div>`:'');
  el._first=first;return el}
 let sTok=0;function show(i){if(i<0)i=0;if(i>=SC.length){endStory();return}
  const p=preload(i),tok=++sTok;if(p&&!p.ok){si=i;sT0=performance.now();sDur=1e9;Promise.race([p,new Promise(r=>setTimeout(r,700))]).then(()=>{p.ok=1;if(tok===sTok)show2(i)});return}show2(i)}
@@ -698,7 +701,7 @@ function show2(i){
 function scdTick(){const el=document.getElementById('scd');if(!el)return;let d=Math.max(0,T-Date.now())/1000;el.innerHTML=[[Math.floor(d/86400),'Ngày'],[Math.floor(d%86400/3600),'Giờ'],[Math.floor(d%3600/60),'Phút'],[Math.floor(d%60),'Giây']].map(x=>`<div><b>${String(x[0]).padStart(2,'0')}</b><span>${x[1]}</span></div>`).join('');if(!sDone)setTimeout(scdTick,1000)}
 function sLoop(t){if(sDone)return;if(!sPaused&&si>=0){const k=(t-sT0)/sDur;const b=bars.children[si];if(b)b.firstChild.style.transform=`scaleX(${Math.min(1,SC[si].end?1:k)})`;if(k>=1)show(si+1)}sRaf=requestAnimationFrame(sLoop)}
 function pauseS(on){if(on===sPaused)return;sPaused=on;story.classList.toggle('paused',on);if(on){sPauseAt=performance.now()}else{sT0+=performance.now()-sPauseAt}
- stage.querySelectorAll('.bg,.w').forEach(e=>e.style.animationPlayState=on?'paused':'running')}
+ stage.querySelectorAll('.fg,.w').forEach(e=>e.style.animationPlayState=on?'paused':'running')}
 function endStory(){if(sDone)return;sDone=true;story.classList.add('out');document.body.classList.remove('locked');document.body.classList.add('ready');window.scrollTo(0,0);setTimeout(()=>{story.classList.remove('on');stage.innerHTML=''},1500)}
 function startStory(){story.classList.add('on');show(0);requestAnimationFrame(sLoop);sfxLoop()}
 document.getElementById('skip').onclick=e=>{e.stopPropagation();endStory()};
