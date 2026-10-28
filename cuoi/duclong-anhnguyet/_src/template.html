@@ -27,7 +27,7 @@ img{display:block;max-width:100%}
 .script{font-family:"Ephesis",cursive;font-weight:400}
 .disp{font-family:"Playfair Display",serif}
 .caps{letter-spacing:.32em;text-transform:uppercase;font-size:.72rem;font-weight:600;color:var(--gold)}
-.gold{background:linear-gradient(100deg,#9c7330,#e6c77d 30%,#a97e35 55%,#f1d98f 75%,#9c7330);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:sheen 6s linear infinite}
+.gold{background:linear-gradient(100deg,#9c7330,#e6c77d 30%,#a97e35 55%,#f1d98f 75%,#9c7330);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:sheen 6s linear infinite;display:inline-block;padding:.28em .38em;margin:-.28em -.38em;overflow:visible}
 @keyframes sheen{to{background-position:-200% 0}}
 /* paper texture */
 body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .3 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -249,8 +249,8 @@ section{position:relative;z-index:2}
 .wl p{font-style:italic}
 .note{font-size:.85rem;color:var(--muted);text-align:center;margin-top:10px}
 
-footer{text-align:center;padding:90px 22px 120px;background:linear-gradient(var(--ivory),#efe4d0);position:relative;z-index:2;overflow:hidden}
-footer .names{font-size:clamp(2.3rem,10.5vw,4.6rem);white-space:nowrap}
+footer{text-align:center;padding:90px 22px 120px;background:linear-gradient(var(--ivory),#efe4d0);position:relative;z-index:2;overflow-x:clip}
+footer .names{font-size:clamp(2.3rem,10.5vw,4.6rem);white-space:nowrap;line-height:1.25;margin-top:22px;padding:.1em 0}
 footer .verse p{font-size:clamp(1.25rem,4.6vw,1.6rem)}
 
 /* reveal */
@@ -369,7 +369,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 #sfx{position:absolute;inset:0;z-index:6;pointer-events:none}
 
 @media(min-width:900px){.frame{width:min(380px,46vh)}.hero .names{font-size:5.2rem}}
-@media(max-width:520px){.hero .names.fit{white-space:normal;font-size:clamp(2.5rem,13.5vw,3.7rem);line-height:1.08;max-width:calc(100vw - 40px);margin-left:auto;margin-right:auto}.hero .names span{display:block}.hero .names .amp{font-size:.55em;line-height:1;margin:.05em 0}}
+@media(max-width:520px){footer .names.fit{white-space:normal;font-size:clamp(2.5rem,13.5vw,3.7rem);line-height:1.12;max-width:calc(100vw - 40px);margin-left:auto;margin-right:auto}footer .names span{display:block}footer .names .amp{font-size:.55em;line-height:1;margin:.05em 0}.hero .names.fit{white-space:normal;font-size:clamp(2.5rem,13.5vw,3.7rem);line-height:1.08;max-width:calc(100vw - 40px);margin-left:auto;margin-right:auto}.hero .names span{display:block}.hero .names .amp{font-size:.55em;line-height:1;margin:.05em 0}}
 .hero .names,.hero .date{position:relative;z-index:52}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -551,7 +551,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 <footer>
  <svg class="cross" style="width:22px"><use href="#crossI"/></svg>
  <div class="caps rv" style="margin-top:14px">Thank you</div>
- <div class="names script rv fit"><span class="gold">Đức Long &amp; Ánh Nguyệt</span></div>
+ <div class="names script rv fit"><span class="gold">Đức Long</span><span class="amp">&amp;</span><span class="gold">Ánh Nguyệt</span></div>
  <div class="verse rv"><p>Tình yêu không bao giờ mất được.</p><cite class="caps">1 Cô-rin-tô 13, 8</cite></div>
  <p class="rv" style="color:var(--muted);font-style:italic">Rất hân hạnh được đón tiếp quý khách.</p>
 <p style="margin-top:40px;font-size:.72rem;color:#a89a82;line-height:1.6">{{CREDIT}}</p>
