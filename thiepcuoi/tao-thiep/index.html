@@ -75,4 +75,4 @@ $('dl').onclick=function(){drawCard();var a=document.createElement('a');a.downlo
 $('pr').onclick=function(){drawCard();window.print()};
 $('cp').onclick=function(){var L=link();(navigator.clipboard?navigator.clipboard.writeText(L):Promise.reject()).then(function(){$('cp').textContent='Đã sao chép ✓'},function(){prompt('Sao chép link:',L)})};
 fill();mark();upd(true);document.fonts&&document.fonts.ready.then(drawCard);
-</script></body></html>
+</script><script src="/a.js" defer></script></body></html>
