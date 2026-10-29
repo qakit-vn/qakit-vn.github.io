@@ -1,0 +1,28 @@
+/* Siêng Studio · bộ khung trang cưới dùng chung. Mỗi phong cách = 1 cấu hình theme. */
+window.MAU_THEMES={
+gothic:{name:'Thánh đường Gothic',tag:'Công giáo · cổ điển',gate:'gothic',
+ c:{bg:'#fbf7ef',bg2:'#f4ecdd',ink:'#3b3226',mut:'#7a6d5a',ac:'#b48a3c',ac2:'#d9b86a'},
+ f:{script:'Ephesis',disp:'Cormorant Garamond',body:'Cormorant Garamond'},orn:'cross',song:'avemaria.mp3',
+ credit:'Nhạc: Ave Maria (bản miễn phí bản quyền)',
+ ex:{a:'Minh Khôi',b:'Thảo Vy',d:'2026-12-19',ct:'Thánh Lễ Hôn Phối',tt:'09:00',tv:'Nhà thờ Giáo xứ An Bình',ta:'Phường An Bình, TP. Biên Hòa',pt:'Tiệc cưới',pv:'Trung tâm tiệc cưới Hoa Sen',ptt:'17:30',pa:'Quốc lộ 1K, TP. Biên Hòa',m:'Tình yêu thì nhẫn nại, tình yêu thì hiền hậu. (1 Cr 13,4)'}},
+songhy:{name:'Song Hỷ đỏ vàng',tag:'Truyền thống Việt',gate:'songhy',
+ c:{bg:'#fff6ea',bg2:'#f9e3c8',ink:'#5a1414',mut:'#8a4b3a',ac:'#b3121f',ac2:'#e0b44c'},
+ f:{script:'Dancing Script',disp:'Playfair Display',body:'Be Vietnam Pro'},orn:'hy',song:'canon.mp3',
+ credit:'Nhạc nền miễn phí bản quyền',
+ ex:{a:'Quốc Bảo',b:'Ngọc Hân',d:'2027-01-10',ct:'Lễ Vu Quy',tt:'08:00',tv:'Tư gia nhà gái',ta:'Xã Hải Hậu, tỉnh Nam Định',pt:'Lễ Thành Hôn',pv:'Tư gia nhà trai',ptt:'11:00',pa:'Thị trấn Yên Định, Nam Định',m:'Trăm năm tình viên mãn, bạc đầu nghĩa phu thê.'}},
+toigian:{name:'Tối giản hiện đại',tag:'Minimal · thanh lịch',gate:'minimal',
+ c:{bg:'#fafafa',bg2:'#efefec',ink:'#1d1d1f',mut:'#6e6e73',ac:'#1d1d1f',ac2:'#b9b9b4'},
+ f:{script:'Italiana',disp:'Italiana',body:'Be Vietnam Pro'},orn:'line',song:'canon.mp3',
+ credit:'Nhạc nền miễn phí bản quyền',
+ ex:{a:'Hải Đăng',b:'Khánh Linh',d:'2026-12-05',ct:'Lễ cưới',tt:'16:00',tv:'The Glasshouse',ta:'Quận 2, TP. Hồ Chí Minh',pt:'Tiệc tối',pv:'The Glasshouse – Sảnh chính',ptt:'18:30',pa:'Quận 2, TP. Hồ Chí Minh',m:'Đơn giản là chúng mình, và những người thương.'}},
+vintage:{name:'Vintage hoa đồng nội',tag:'Rustic · hoa khô',gate:'envelope',
+ c:{bg:'#f7f1e6',bg2:'#ece0cc',ink:'#4a3b2c',mut:'#7f6b55',ac:'#9a6b4f',ac2:'#c9a27e'},
+ f:{script:'Great Vibes',disp:'Lora',body:'Lora'},orn:'floral',song:'canon.mp3',
+ credit:'Nhạc nền miễn phí bản quyền',
+ ex:{a:'Trung Kiên',b:'Mai Anh',d:'2027-02-14',ct:'Lễ cưới ngoài trời',tt:'15:30',tv:'Đồi thông Đà Lạt',ta:'Phường 3, TP. Đà Lạt',pt:'Tiệc thân mật',pv:'Nhà gỗ bên đồi',ptt:'18:00',pa:'Phường 3, TP. Đà Lạt',m:'Mình cùng nhau đi qua những mùa hoa.'}},
+hanquoc:{name:'Pastel Hàn Quốc',tag:'Nhẹ nhàng · dễ thương',gate:'curtain',
+ c:{bg:'#fff7f8',bg2:'#fde8ec',ink:'#4b3b44',mut:'#8c7480',ac:'#e48aa0',ac2:'#a9c7e8'},
+ f:{script:'Sacramento',disp:'Nunito',body:'Nunito'},orn:'heart',song:'canon.mp3',
+ credit:'Nhạc nền miễn phí bản quyền',
+ ex:{a:'Gia Huy',b:'Bảo Ngọc',d:'2026-11-28',ct:'Lễ cưới',tt:'10:30',tv:'Nhà hàng Mây Hồng',ta:'Quận Cầu Giấy, Hà Nội',pt:'Tiệc cưới',pv:'Nhà hàng Mây Hồng – Tầng 3',ptt:'11:30',pa:'Quận Cầu Giấy, Hà Nội',m:'Gặp nhau là duyên, ở bên nhau là chọn lựa mỗi ngày.'}}
+};

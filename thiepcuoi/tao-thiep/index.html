@@ -1,0 +1,78 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tạo thiệp cưới online miễn phí · Siêng Studio</title>
+<meta name="description" content="Tự tạo thiệp cưới online miễn phí: chọn phong cách, nhập tên, ngày giờ, địa điểm, xem trước ngay, tải ảnh thiệp PNG và gửi link qua Zalo.">
+<link rel="canonical" href="https://qakit-vn.github.io/thiepcuoi/tao-thiep/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Ephesis&family=Cormorant+Garamond:wght@600&family=Dancing+Script:wght@600&family=Playfair+Display:wght@600&family=Italiana&family=Great+Vibes&family=Lora:wght@600&family=Sacramento&family=Nunito:wght@600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Be Vietnam Pro",sans-serif;background:#f7f2ea;color:#2f2a24}
+nav{background:#2f2a24;color:#fff;padding:12px 16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}nav a{color:#e8d6b0;text-decoration:none;font-size:.9rem}
+.w{max-width:1180px;margin:0 auto;padding:18px}h1{font-size:1.6rem;margin:.4em 0 .2em}.sub{color:#6d6457;margin:0 0 16px}
+.g{display:grid;gap:18px}@media(min-width:960px){.g{grid-template-columns:380px 1fr}}
+.p{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+label{display:block;font-size:.8rem;font-weight:600;margin:10px 0 4px;color:#5a5146}input,textarea,select{width:100%;padding:10px;border:1px solid #d9cfbf;border-radius:10px;font:inherit;font-size:16px;background:#fffdf9}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:8px}fieldset{border:1px dashed #d9cfbf;border-radius:12px;margin:12px 0 0;padding:4px 10px 10px}legend{font-weight:700;font-size:.85rem}
+.st{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.st button{border:2px solid transparent;border-radius:10px;padding:6px 2px;font:600 .68rem inherit;cursor:pointer;line-height:1.2}.st button.on{border-color:#2f2a24}
+.b{display:inline-block;padding:11px 16px;border-radius:999px;border:0;background:#2f2a24;color:#fff;font:600 .9rem inherit;cursor:pointer;text-decoration:none;margin:6px 6px 0 0}.b.o{background:#fff;color:#2f2a24;border:1px solid #2f2a24}.b.cta{background:#b48a3c}
+.pv{display:grid;gap:18px}@media(min-width:700px){.pv{grid-template-columns:auto 1fr}}
+.ph{width:300px;height:620px;border:10px solid #2f2a24;border-radius:36px;overflow:hidden;margin:0 auto;background:#fff}.ph iframe{width:100%;height:100%;border:0}
+canvas{width:100%;max-width:420px;height:auto;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.12);display:block}
+#share{font-size:.8rem;word-break:break-all;background:#f3ede2;padding:8px;border-radius:8px;margin-top:8px}
+.note{font-size:.78rem;color:#7a7064;margin-top:8px}
+@media print{body *{visibility:hidden}#card,#card *{visibility:visible}#card{position:fixed;left:0;top:0;width:100%;max-width:none;box-shadow:none}}
+</style></head><body>
+<nav><b>Siêng Studio</b><a href="/thiepcuoi/">Thiệp cưới online</a><a href="/thiepcuoi/#mau">Mẫu thiệp</a><a href="/thiepcuoi/#gia">Bảng giá</a><a href="/thiepcuoi/blog/">Blog</a></nav>
+<div class="w"><h1>Tạo thiệp cưới online miễn phí</h1><p class="sub">Chọn phong cách, điền thông tin, xem trước ngay. Tải ảnh thiệp hoặc gửi link qua Zalo. Mọi dữ liệu chỉ nằm trên máy bạn và trong đường link, không gửi về máy chủ.</p>
+<div class="g"><div class="p" id="f">
+<label>Phong cách</label><div class="st" id="st"></div>
+<div class="r2"><div><label>Chú rể</label><input id="a" maxlength="30"></div><div><label>Cô dâu</label><input id="b" maxlength="30"></div></div>
+<label>Ngày cưới</label><input id="d" type="date">
+<fieldset><legend>Sự kiện 1</legend><label>Tên sự kiện</label><input id="ct" maxlength="40"><div class="r2"><div><label>Giờ</label><input id="tt" type="time"></div><div><label>Nơi tổ chức</label><input id="tv" maxlength="60"></div></div><label>Địa chỉ</label><input id="ta" maxlength="120"><label>Link Google Maps (không bắt buộc)</label><input id="tm" type="url" placeholder="https://maps.app.goo.gl/..."></fieldset>
+<fieldset><legend>Sự kiện 2 (không bắt buộc)</legend><label>Tên sự kiện</label><input id="pt" maxlength="40"><div class="r2"><div><label>Giờ</label><input id="ptt" type="time"></div><div><label>Nơi tổ chức</label><input id="pv" maxlength="60"></div></div><label>Địa chỉ</label><input id="pa" maxlength="120"><label>Link Google Maps</label><input id="pm" type="url" placeholder="https://..."></fieldset>
+<label>Lời nhắn (không bắt buộc)</label><textarea id="m" rows="2" maxlength="200"></textarea>
+<p class="note">Tên, ảnh và bài hát riêng có trong trang cưới đầy đủ. Bản miễn phí dùng minh hoạ và nhạc mẫu.</p>
+</div>
+<div class="p"><div class="pv"><div><div class="ph"><iframe id="fr" title="Xem trước trang cưới" loading="lazy"></iframe></div><p style="text-align:center"><button class="b o" id="rp">↻ Xem lại hiệu ứng mở</button></p></div>
+<div><b>Ảnh thiệp (PNG)</b><canvas id="card" width="1080" height="1500"></canvas>
+<button class="b" id="dl">⬇ Tải ảnh thiệp</button><button class="b o" id="pr">🖨 In thiệp</button>
+<p style="margin-top:16px"><b>Link chia sẻ</b></p><button class="b" id="cp">Sao chép link</button><a class="b o" id="op" target="_blank" rel="noopener">Mở trang</a><div id="share"></div>
+<div style="margin-top:20px;padding:14px;border-radius:12px;background:#fbf3e3"><b>Muốn trang cưới riêng với ảnh cưới, chuyện tình và bài hát của hai bạn?</b><p class="note" style="font-size:.85rem">Siêng Studio làm trọn gói từ 49.000đ, giao link trong 24–48 giờ.</p><a class="b cta" href="/thiepcuoi/#dat">Đặt trang cưới đầy đủ</a><a class="b o" href="/thiepcuoi/#gia">Xem bảng giá</a></div>
+</div></div></div></div></div>
+<script src="/cuoi/mau/themes.js"></script>
+<script>
+var TH=MAU_THEMES,F=['a','b','d','ct','tt','tv','ta','tm','pt','ptt','pv','pa','pm','m'],$=function(i){return document.getElementById(i)};
+var q=new URLSearchParams(location.search),sid=TH[q.get('s')]?q.get('s'):'gothic';
+function enc(o){var u=new TextEncoder().encode(JSON.stringify(o)),s='';u.forEach(function(x){s+=String.fromCharCode(x)});return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function fill(){var x=TH[sid].ex;F.forEach(function(k){$(k).value=x[k]||''})}
+$('st').innerHTML=Object.keys(TH).map(function(k){var t=TH[k];return '<button type="button" data-k="'+k+'" style="background:'+t.c.bg2+';color:'+t.c.ink+'"><span style="display:block;height:14px;border-radius:4px;margin:0 4px 4px;background:linear-gradient(90deg,'+t.c.ac+' 50%,'+t.c.ac2+' 50%)"></span>'+t.name+'</button>'}).join('');
+function mark(){document.querySelectorAll('#st button').forEach(function(b){b.classList.toggle('on',b.dataset.k==sid)})}
+$('st').onclick=function(ev){var b=ev.target.closest('button');if(!b)return;var dirty=F.some(function(k){return $(k).value!=(TH[sid].ex[k]||'')});sid=b.dataset.k;if(!dirty)fill();mark();upd(true)};
+function data(){var o={};F.forEach(function(k){o[k]=$(k).value.trim()});return o}
+function link(){return location.origin+'/cuoi/mau/'+sid+'/?d='+enc(data())}
+var tm,lastSrc='';
+function upd(now){clearTimeout(tm);drawCard();var L=link();$('share').textContent=L;$('op').href=L;tm=setTimeout(function(){var s=L+'&open=1';if(s!=lastSrc){lastSrc=s;$('fr').src=s}},now?0:700);history.replaceState(null,'','?s='+sid)}
+$('rp').onclick=function(){lastSrc='';$('fr').src='about:blank';setTimeout(function(){lastSrc=link()+'&open=1';$('fr').src=lastSrc},50)};
+F.forEach(function(k){$(k).addEventListener('input',function(){upd()})});
+/* canvas card */
+function fmt(d,t){var x=new Date(d+'T00:00:00');if(isNaN(x))return '';var W=['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];return (t?t+' · ':'')+W[x.getDay()]+', '+('0'+x.getDate()).slice(-2)+'.'+('0'+(x.getMonth()+1)).slice(-2)+'.'+x.getFullYear()}
+function fit(x,s,font,size,max){x.font=font.replace('S',size);while(x.measureText(s).width>max&&size>20){size-=2;x.font=font.replace('S',size)}return size}
+function wrap(x,s,cx,y,max,lh){var w=s.split(' '),l='';w.forEach(function(t){var tt=l?l+' '+t:t;if(x.measureText(tt).width>max&&l){x.fillText(l,cx,y);y+=lh;l=t}else l=tt});if(l)x.fillText(l,cx,y);return y+lh}
+function drawCard(){var T=TH[sid],c=T.c,cv=$('card'),x=cv.getContext('2d'),W=1080,H=1500,D=data();
+ var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,c.bg);g.addColorStop(1,c.bg2);x.fillStyle=g;x.fillRect(0,0,W,H);
+ x.strokeStyle=c.ac;x.lineWidth=4;x.strokeRect(40,40,W-80,H-80);x.lineWidth=1.5;x.strokeRect(62,62,W-124,H-124);
+ x.fillStyle=c.ac;x.globalAlpha=.9;
+ if(T.orn=='hy'){x.font='200px serif';x.textAlign='center';x.globalAlpha=.12;x.fillText('囍',W/2,560);x.globalAlpha=.9}
+ if(T.gate=='gothic'){x.beginPath();x.moveTo(W/2-160,330);x.lineTo(W/2-160,230);x.quadraticCurveTo(W/2-160,120,W/2,90);x.quadraticCurveTo(W/2+160,120,W/2+160,230);x.lineTo(W/2+160,330);x.strokeStyle=c.ac;x.lineWidth=3;x.stroke()}
+ if(T.orn=='heart'||T.orn=='floral'){for(var i=0;i<14;i++){x.globalAlpha=.18;x.fillStyle=i%2?c.ac:c.ac2;x.beginPath();x.arc(90+((i*173)%900),100+((i*97)%220)+(i>7?1100:0),10+(i%4)*6,0,7);x.fill()}x.globalAlpha=.9}
+ x.textAlign='center';x.fillStyle=c.ac;x.font='700 30px "Be Vietnam Pro"';x.letterSpacing='8px';x.fillText('TRÂN TRỌNG KÍNH MỜI',W/2,400);x.letterSpacing='0px';
+ var sf='Spx "'+T.f.script+'",cursive';x.fillStyle=c.ac;
+ fit(x,D.a||'',sf,150,W-200);x.fillText(D.a||'',W/2,580);x.font='90px "'+T.f.script+'",cursive';x.fillStyle=c.ac2;x.fillText('&',W/2,690);x.fillStyle=c.ac;fit(x,D.b||'',sf,150,W-200);x.fillText(D.b||'',W/2,820);
+ x.fillStyle=c.ink;x.font='600 40px "'+T.f.disp+'",serif';x.fillText(fmt(D.d,''),W/2,920);
+ var y=1010;[[D.ct,D.tt,D.tv,D.ta],[D.pt,D.ptt,D.pv,D.pa]].forEach(function(e){if(!e[2])return;x.fillStyle=c.ac;x.font='700 30px "Be Vietnam Pro"';x.fillText((e[0]||'').toUpperCase()+(e[1]?' · '+e[1]:''),W/2,y);x.fillStyle=c.ink;x.font='600 36px "'+T.f.disp+'",serif';x.fillText(e[2],W/2,y+48);x.fillStyle=c.mut;x.font='28px "Be Vietnam Pro"';y=wrap(x,e[3]||'',W/2,y+90,W-220,36)+30});
+ if(D.m){x.fillStyle=c.mut;x.font='italic 30px "'+T.f.disp+'",serif';wrap(x,D.m,W/2,Math.max(y,1330),W-240,40)}
+ x.fillStyle=c.mut;x.font='22px "Be Vietnam Pro"';x.fillText('Siêng Studio · qakit-vn.github.io/thiepcuoi',W/2,H-90)}
+$('dl').onclick=function(){drawCard();var a=document.createElement('a');a.download='thiep-cuoi-'+(($('a').value+'-'+$('b').value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/gi,'d').replace(/[^a-z0-9]+/gi,'-').toLowerCase())+'.png';a.href=$('card').toDataURL('image/png');a.click()};
+$('pr').onclick=function(){drawCard();window.print()};
+$('cp').onclick=function(){var L=link();(navigator.clipboard?navigator.clipboard.writeText(L):Promise.reject()).then(function(){$('cp').textContent='Đã sao chép ✓'},function(){prompt('Sao chép link:',L)})};
+fill();mark();upd(true);document.fonts&&document.fonts.ready.then(drawCard);
+</script></body></html>
