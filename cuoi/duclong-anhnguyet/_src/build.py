@@ -35,3 +35,21 @@ w(os.path.join(D,'index.html'),render('trai',BASE,''))
 w(os.path.join(D,'nha-trai','index.html'),render('trai',BASE,'../').replace('<meta name="robots"','<link rel="canonical" href="'+BASE+'">\n<meta name="robots"'))
 w(os.path.join(D,'nha-gai','index.html'),render('gai',BASE+'nha-gai/','../'))
 print('ok')
+MOI='''<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tạo link mời khách · Đức Long & Ánh Nguyệt</title><meta name="robots" content="noindex,nofollow">
+<style>body{font:17px/1.5 system-ui,sans-serif;background:#fbf7ef;color:#3b3226;margin:0;padding:20px}main{max-width:640px;margin:auto}h1{font-size:1.3rem}
+label{display:inline-flex;gap:6px;margin-right:16px}textarea{width:100%;min-height:150px;font:inherit;padding:10px;border:1px solid #d9c49a;border-radius:8px;box-sizing:border-box}
+button{font:inherit;padding:.55em 1.1em;border-radius:20px;border:1px solid #b48a3c;background:#b48a3c;color:#fff;cursor:pointer}button.s{background:#fff;color:#7a5a20}
+ul{list-style:none;padding:0}li{background:#fff;border:1px solid #ead9b8;border-radius:8px;padding:10px;margin:8px 0;display:flex;gap:8px;align-items:center}li div{flex:1;min-width:0}li b{display:block}li small{word-break:break-all;color:#7a6d5a}</style></head>
+<body><main><h1>Tạo link thiệp có tên khách</h1>
+<p><label><input type="radio" name="s" value="" checked> Nhà trai</label><label><input type="radio" name="s" value="nha-gai/"> Nhà gái</label></p>
+<p>Nhập tên khách, mỗi dòng một người:</p><textarea id="t" placeholder="Anh Minh&#10;Cô Lan và gia đình"></textarea>
+<p><button id="g">Tạo link</button> <button class="s" id="all">Sao chép tất cả</button></p><ul id="o"></ul></main>
+<script>const B="__BASE__";let L=[];const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function cp(v,b){try{await navigator.clipboard.writeText(v)}catch(e){const a=document.createElement("textarea");a.value=v;document.body.appendChild(a);a.select();document.execCommand("copy");a.remove()}if(b){const x=b.textContent;b.textContent="Đã chép ✓";setTimeout(()=>b.textContent=x,1200)}}
+function gen(){const s=document.querySelector("[name=s]:checked").value;L=t.value.split("\\n").map(x=>x.trim()).filter(Boolean).map(n=>[n,B+s+"?khach="+encodeURIComponent(n)]);
+o.innerHTML=L.map((x,i)=>`<li><div><b>${esc(x[0])}</b><small>${esc(x[1])}</small></div><button class="s" data-i="${i}">Chép</button></li>`).join("");
+o.querySelectorAll("button").forEach(b=>b.onclick=()=>cp(L[b.dataset.i][1],b))}
+g.onclick=gen;document.querySelectorAll("[name=s]").forEach(r=>r.onchange=()=>L.length&&gen());
+all.onclick=()=>{if(!L.length)gen();cp(L.map(x=>x[0]+": "+x[1]).join("\\n"),all)}</script></body></html>'''
+w(os.path.join(D,'moi','index.html'),MOI.replace('__BASE__',BASE))
