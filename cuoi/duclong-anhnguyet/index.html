@@ -399,7 +399,7 @@ body.ready .hero .h:nth-child(2){transition-delay:.3s}body.ready .hero .h:nth-ch
 @media(max-width:899px){footer .names.fit{white-space:normal;font-size:clamp(2.6rem,15vw,4.6rem);line-height:1.12;max-width:calc(100vw - 40px);margin-left:auto;margin-right:auto}footer .names span{display:block;width:fit-content;margin-left:auto;margin-right:auto}footer .names .gold{margin:-.2em auto}footer .names .amp{font-size:.55em;line-height:1;margin:.05em auto}.hero .names.fit{white-space:normal;font-size:clamp(2.6rem,15vw,4.6rem);line-height:1.08;max-width:calc(100vw - 40px);margin-left:auto;margin-right:auto}.hero .names span{display:block;width:fit-content;margin-left:auto;margin-right:auto}.hero .names .gold{margin:-.2em auto}.hero .names .amp{font-size:.55em;line-height:1;margin:.05em auto}}
 .hero .names,.hero .date{position:relative;z-index:52}
 .hero .names.fit,footer .names.fit{width:100%;max-width:min(100%,640px);box-sizing:border-box;align-self:center}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}}
 </style>
 </head>
 <body class="locked">
@@ -712,6 +712,7 @@ function show2(i){
  const c=SC[i],old=sEl;si=i;sEl=build(i);stage.appendChild(sEl);[1,2,3].forEach(k=>{const q=preload(i+k);q&&q.then(()=>q.ok=1)});
  void sEl.offsetWidth;sEl.classList.add('in-'+c.tr,'live');if(sEl._first)sEl.classList.add('card');
  setTimeout(()=>sEl&&sEl.classList.add('txt'),60);
+ const me=sEl;setTimeout(()=>{if(me.isConnected&&!me.classList.contains('leave')&&parseFloat(getComputedStyle(me).opacity)<.05){me.style.animation='none';me.style.opacity='1';me.querySelectorAll('.w').forEach(w=>{w.style.transition='none';w.style.opacity='1';w.style.transform='none'})}},2600);
  if(old){old.classList.add('leave');setTimeout(()=>old.remove(),1700)}
  if(c.tr==='flare'){const f=document.getElementById('flare');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')}
  if(c.tr==='glass'){const g=document.getElementById('glass');g.classList.remove('go');void g.offsetWidth;g.classList.add('go')}
