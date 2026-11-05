@@ -727,7 +727,7 @@ function startSrc(){if(SRC||!BUF)return;SRC=AC.createBufferSource();SRC.buffer=B
 function ramp(to,sec){const t=AC.currentTime;GN.gain.cancelScheduledValues(t);GN.gain.setValueAtTime(GN.gain.value,t);GN.gain.linearRampToValueAtTime(to,t+sec)}
 function setMUI(){document.getElementById('music').classList.toggle('on',mOn);document.getElementById('mlabel').textContent=mOn?'ĐANG PHÁT':'NHẠC'}
 let AU=null,mUser=false;
-function auEl(){if(!AU){AU=new Audio();AU.loop=true;AU.preload='auto';AU.setAttribute('playsinline','');const L=AU.canPlayType('audio/mp4; codecs="mp4a.40.2"')?[TRM[0],TR[0]]:[TR[0],TRM[0]];let li=0;AU.src=L[0];AU.load();AU.onerror=()=>{if(++li<L.length){AU.src=L[li];AU.load();if(mOn)AU.play().catch(mFail)}else mFail()};AU.onplaying=()=>{mHint(false)}}return AU}
+function auEl(){if(!AU){AU=new Audio();AU.loop=true;AU.preload='auto';AU.setAttribute('playsinline','');const L=AU.canPlayType('audio/mp4; codecs="mp4a.40.2"')?[TRM[0],TR[0]]:[TR[0],TRM[0]];let li=0;AU.src=L[0];AU.load();AU.onerror=()=>{if(++li<L.length){AU.src=L[li];AU.load();if(mOn)AU.play().catch(mFail)}else mFail()};AU.onplaying=()=>{mHint(false);mWait=false}}return AU}
 function mFail(){mOn=false;setMUI();mHint(true)}
 setTimeout(auEl,0);
 function mHint(on){let h=document.getElementById('mhint');if(!h){h=document.createElement('button');h.id='mhint';h.type='button';h.textContent='♪ Chạm để bật nhạc';h.style.cssText='position:fixed;right:72px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:61;font:600 .8rem "Cormorant Garamond";letter-spacing:.12em;padding:.7em 1.2em;border-radius:30px;border:1px solid #d9b86a;background:rgba(40,28,16,.85);color:#f6e7c4;display:none';h.onclick=e=>{e.stopPropagation();toggleMusic(true)};document.body.appendChild(h)}h.style.display=on?'block':'none'}
@@ -735,7 +735,10 @@ function toggleMusic(force){
  {mOn=force!==undefined?force:!mOn;setMUI();const a=auEl();if(mOn){a.volume=.85;const p=a.play();if(p&&p.catch)p.catch(mFail)}else a.pause();return}mOn=force!==undefined?force:!mOn;setMUI();clearTimeout(offT);
  if(mOn){if(!unlock()){mOn=false;setMUI();return}AC.resume().catch(()=>{});(ldP=ldP||load()).then(b=>{if(!b){mOn=false;setMUI();return}if(!mOn)return;startSrc();ramp(.85,2.5)})}
  else if(AC){ramp(0,.8);offT=setTimeout(()=>{if(!mOn)AC.suspend().catch(()=>{})},900)}}
-document.addEventListener('visibilitychange',()=>{if(AU){if(document.hidden)AU.pause();else if(mOn)AU.play().catch(()=>{})}if(!AC)return;if(document.hidden)AC.suspend().catch(()=>{});else if(mOn)AC.resume().catch(()=>{})});
+let mWait=false;function mResume(){if(!mOn||document.hidden)return;if(AU&&AU.paused){const p=AU.play();if(p&&p.catch)p.catch(()=>{mWait=true;mHint(true)})}if(AC&&AC.state!=='running')AC.resume().catch(()=>{mWait=true})}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(AU)AU.pause();if(AC)AC.suspend().catch(()=>{})}else mResume()});
+addEventListener('pageshow',mResume);setInterval(()=>{if(mOn&&!document.hidden&&AU&&AU.paused&&!mWait){mResume()}},1500);if(AC)AC.onstatechange=null;addEventListener('focus',mResume);
+['touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,()=>{if(mWait&&mOn){mWait=false;mResume()}},{capture:true,passive:true}));
 document.getElementById('music').onclick=e=>{e.stopPropagation();mUser=true;toggleMusic()};
 ['touchend','click'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.closest&&e.target.closest('#music,#mhint'))return;if(!mOn&&!mUser&&!window._mFirst){window._mFirst=1;try{toggleMusic(true)}catch(e){}}},{capture:true,passive:true}));
 
