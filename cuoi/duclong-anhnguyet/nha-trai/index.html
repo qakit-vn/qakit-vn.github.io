@@ -849,15 +849,15 @@ function sfxLoop(){if(sDone){sx.clearRect(0,0,innerWidth,innerHeight);return}
 if(location.hash==='#skip'){document.getElementById('gate').style.display='none';document.body.classList.remove('locked');document.body.classList.add('ready')}
 
 // wishes (stored locally on the guest's device)
-const wl=document.getElementById('wl'),K='dl-an-wishes';
+const wl=document.getElementById('wl'),K='dl-an-wishes-'+SIDE.side;
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const WAPI='https://autogen-testcase.duckdns.org/wishes';
 function drawW(a){wl.innerHTML=a.map(w=>`<div><b>${esc(w.n)}</b>${w.a?' · <small>'+esc(w.a)+'</small>':''}<p>${esc(w.m)}</p></div>`).join('')}
 function localW(){return JSON.parse(localStorage.getItem(K)||'[]')}
-function renderW(){fetch(WAPI+'?site=dl-an').then(r=>{if(!r.ok)throw 0;return r.json()}).then(drawW).catch(()=>drawW(localW()))}
+function renderW(){fetch(WAPI+'?site=dl-an-'+SIDE.side).then(r=>{if(!r.ok)throw 0;return r.json()}).then(drawW).catch(()=>drawW(localW()))}
 renderW();
 document.querySelectorAll('#chips button').forEach(b=>b.onclick=()=>{document.getElementById('wm').value=b.textContent});
-document.getElementById('wf').onsubmit=e=>{e.preventDefault();const w={n:wn.value.trim(),a:wa.value,m:wm.value.trim()};const done=()=>{renderW();wm.value='';document.getElementById('wnote').textContent='Cảm ơn bạn! Cô dâu chú rể đã nhận được tình cảm của bạn ♡';burst()};fetch(WAPI,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({site:'dl-an'},w))}).then(r=>{if(!r.ok)throw 0;done()}).catch(()=>{const a=localW();a.unshift(w);localStorage.setItem(K,JSON.stringify(a.slice(0,30)));drawW(a);wm.value='';document.getElementById('wnote').textContent='Cảm ơn bạn! Cô dâu chú rể đã nhận được tình cảm của bạn ♡';burst()})};
+document.getElementById('wf').onsubmit=e=>{e.preventDefault();const w={n:wn.value.trim(),a:wa.value,m:wm.value.trim()};const done=()=>{renderW();wm.value='';document.getElementById('wnote').textContent='Cảm ơn bạn! Cô dâu chú rể đã nhận được tình cảm của bạn ♡';burst()};fetch(WAPI,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({site:'dl-an-'+SIDE.side},w))}).then(r=>{if(!r.ok)throw 0;done()}).catch(()=>{const a=localW();a.unshift(w);localStorage.setItem(K,JSON.stringify(a.slice(0,30)));drawW(a);wm.value='';document.getElementById('wnote').textContent='Cảm ơn bạn! Cô dâu chú rể đã nhận được tình cảm của bạn ♡';burst()})};
 function burst(){for(let i=0;i<24;i++){const q=mk();q.x=W/2+(Math.random()-.5)*80;q.y=H*.6;q.vy=-2-Math.random()*3;q.vx=(Math.random()-.5)*4;P.push(q)}setTimeout(()=>P.splice(N),6000)}
 </script>
 <script>
