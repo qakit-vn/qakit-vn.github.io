@@ -747,14 +747,20 @@ document.getElementById('music').onclick=e=>{e.stopPropagation();mUser=true;togg
 const asBtn=document.getElementById('autos');let asOn=false,asUser=true,asIdle,asLast=0,asHold=0,asPos=0;
 const stops=[...document.querySelectorAll('.verse,#moi .invite,.cd,#le .events,#khoanhkhac,#album,#loichuc,footer')];
 const SPEED=innerWidth<700?38:48; // px per second
-function setAS(on,user){asOn=on;if(user!==undefined)asUser=on;asBtn.classList.toggle('on',on);asBtn.setAttribute('aria-pressed',on);if(on){asPos=scrollY;asLast=0;requestAnimationFrame(asStep)}}
-function asStep(t){if(!asOn)return;if(!asLast)asLast=t;const dt=Math.min(64,t-asLast);asLast=t;
+function setAS(on,user){asOn=on;if(user!==undefined)asUser=on;asBtn.classList.toggle('on',on);asBtn.setAttribute('aria-pressed',on);if(on){asPos=scrollY;asLast=0;asV=0;requestAnimationFrame(asStep)}}
+let asV=0,asY=[];function asCalc(){asY=stops.map(el=>({el,y:el.getBoundingClientRect().top+scrollY-innerHeight*.18}))}
+addEventListener('resize',()=>{if(asOn)asCalc()});
+function asStep(t){if(!asOn)return;if(!asLast){asLast=t;asCalc()}const dt=Math.min(50,t-asLast);asLast=t;
  if(lb.classList.contains('on')){requestAnimationFrame(asStep);return}
- if(asHold>0){asHold-=dt}else{
-  const prev=asPos;asPos+=SPEED*dt/1000;
-  for(const el of stops){const y=el.getBoundingClientRect().top+scrollY-innerHeight*.18;if(!el._done&&prev<y&&asPos>=y){el._done=1;asHold=2600;asPos=y;break}}
+ if(asHold>0){asHold-=dt;asV=0}else{
+  let nx=null;for(const o of asY){if(!o.el._done&&o.y>asPos){nx=o;break}}
+  const dist=nx?nx.y-asPos:1e9;
+  const target=Math.min(SPEED,Math.max(6,dist*1.1));
+  asV+=(target-asV)*Math.min(1,dt/450);
+  asPos+=asV*dt/1000;
+  if(nx&&asPos>=nx.y-0.5){asPos=nx.y;nx.el._done=1;asHold=2600}
   const max=document.documentElement.scrollHeight-innerHeight;if(asPos>=max-1){asPos=max;window.scrollTo(0,max);setAS(false,false);return}
-  window.scrollTo(0,asPos)}
+  const d=devicePixelRatio||1;window.scrollTo(0,Math.round(asPos*d)/d)}
  requestAnimationFrame(asStep)}
 function userAct(){if(!asUser||!sDone)return;if(asOn)setAS(false);clearTimeout(asIdle);asIdle=setTimeout(()=>{if(asUser&&!lb.classList.contains('on')&&scrollY<document.documentElement.scrollHeight-innerHeight-2)setAS(true)},4000)}
 ['wheel','touchstart','touchmove','keydown','mousedown'].forEach(ev=>addEventListener(ev,e=>{if(e.target.closest&&e.target.closest('#autos,#music'))return;userAct()},{passive:true}));
